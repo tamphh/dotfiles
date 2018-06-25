@@ -296,7 +296,7 @@ endif
 set diffopt=vertical
 
 " pathogen
-execute pathogen#infect()
+" execute pathogen#infect()
 
 " arrow keys to resize panes
 nnoremap <Leader><left> :vertical resize -1<CR>
