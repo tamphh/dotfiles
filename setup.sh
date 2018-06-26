@@ -2,7 +2,7 @@
 
 echo "Linking up the dotfiles to your home directory ($HOME)"
 
-cd ~/.dotfiles
+cd ~/dotfiles
 stow config
 stow shell
 stow tig
@@ -10,4 +10,5 @@ stow tmux
 stow vim
 cd -
 
+mv ~/dotfiles ~/.dotfiles
 echo "DONE!"
