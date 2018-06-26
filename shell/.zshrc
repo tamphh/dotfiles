@@ -1,8 +1,5 @@
 export PATH="$HOME/.rbenv/bin:$PATH"
 eval "$(rbenv init -)"
-# Additional source
-export NVM_DIR="$HOME/.nvm"
-  . "/usr/local/opt/nvm/nvm.sh"
 
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
@@ -89,6 +86,11 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+
+# font config
+export LANG=en_US.UTF-8
+export LC_CTYPE=en_US.UTF-8
+
 # 10ms for key sequences
 KEYTIMEOUT=1
 # zsh aliases

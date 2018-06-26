@@ -35,6 +35,9 @@ PACKAGES=(
 echo "Installing packages..."
 brew install ${PACKAGES[@]}
 
+#Python3 interface with pip:
+pip3 install neovim
+
 echo "Cleaning up..."
 brew cleanup
 
