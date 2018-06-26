@@ -1,4 +1,4 @@
-echo "Starting bootstrapping"
+echo "Starting brew bootstrapping"
 
 # Check for Homebrew, install if we don't have it
 if test ! $(which brew); then
@@ -17,11 +17,15 @@ brew install findutils
 # Install Bash 4
 brew install bash
 
+# Install universal-ctags
+brew install --HEAD universal-ctags/universal-ctags/universal-ctags
+
 # Needed packages
 PACKAGES=(
     ag
     python
     python3
+    stow
     tree
     tmux
     tig
@@ -42,4 +46,4 @@ CASKS=(
 echo "Installing cask apps..."
 brew cask install ${CASKS[@]}
 
-echo "Bootstrapping complete"
+echo "Done"

@@ -19,7 +19,7 @@ endif
 
 " Make sure you use single quotes
 
-Plug 'rking/ag.vim'
+"Plug 'rking/ag.vim'
 Plug 'wycats/nerdtree'
 "Plug 'yggdroot/leaderf'
 Plug 'tpope/vim-fugitive'
