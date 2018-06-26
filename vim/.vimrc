@@ -336,7 +336,7 @@ call denite#custom#filter('matcher_ignore_globs', 'ignore_globs',
 
 "call denite#custom#option('default', 'auto_resume', 1)
 nnoremap <Leader>oo :Denite outline<CR>
-nnoremap <Leader>f :Denite file_rec<CR>
+nnoremap <Leader>ff :Denite file_rec<CR>
 nnoremap <Leader>rr :Denite -resume<CR>
 nnoremap <Leader>/ :Denite grep<CR>
 nnoremap <Leader>ss :Denite line<CR>
