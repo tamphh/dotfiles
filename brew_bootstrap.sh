@@ -7,9 +7,11 @@ if test ! $(which brew); then
 fi
 
 # Update homebrew recipes
+echo "brew updating..."
 brew update
 
 # Install GNU core utilities (those that come with OS X are outdated)
+echo "brew core utlis installing..."
 brew tap homebrew/dupes
 brew install coreutils
 # Install GNU `find`, `locate`, `updatedb`, and `xargs`, g-prefixed
@@ -32,7 +34,7 @@ PACKAGES=(
     vim
     neovim
 )
-echo "Installing packages..."
+echo "Installing needed packages..."
 brew install ${PACKAGES[@]}
 
 #Python3 interface with pip:
