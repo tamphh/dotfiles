@@ -87,6 +87,13 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
+# Running tmnew will check for sessions attached to your current directory,
+# if any sessions are found, the session is resumed,
+#  otherwise a new session is created where the name is $(pwd).
+alias tmnew='tmux new-session -A -s `pwd`'
+
+alias mux="tmuxinator"
+
 # font config
 export LANG=en_US.UTF-8
 export LC_CTYPE=en_US.UTF-8

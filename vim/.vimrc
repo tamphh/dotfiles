@@ -20,7 +20,8 @@ endif
 " Make sure you use single quotes
 
 "Plug 'rking/ag.vim'
-Plug 'wycats/nerdtree'
+"Plug 'wycats/nerdtree'
+Plug 'scrooloose/nerdtree'
 "Plug 'yggdroot/leaderf'
 Plug 'tpope/vim-fugitive'
 "Plug 'jreybert/vimagit'
@@ -63,6 +64,8 @@ syntax on                         " show syntax highlighting
 filetype plugin indent on
 
 " set number                         " show line number
+set nobackup
+set noswapfile
 set expandtab                      " use spaces, not tab characters
 set showmatch                      " show bracket matches
 set incsearch                      " show search results as I type
@@ -90,17 +93,36 @@ set hlsearch                       " highlight all search matches
 "set tags=./tags; " Set tags directory
 set clipboard+=unnamed
 set timeoutlen=1000 ttimeoutlen=10
+set nomodeline                      " disable mode lines (security measure)
+
+
 packadd! matchit
 " Remap leader key to SPACE
 let mapleader="\<SPACE>"
 
-" wycats/nerdtree
-nmap <leader>n :NERDTreeToggle<cr>
+" unbind defaut mappings
+map s <Nop>
+
+" =====================================================================
+" NERDTree
+" =====================================================================
+nnoremap <leader>pt :NERDTreeToggle<CR>
+nnoremap <leader>ft :NERDTreeFind<CR>
+let NERDTreeShowHidden         = 1
+let NERDTreeShowFiles          = 1
+let NERDTreeIgnore = [ '\.pyc$', '\.pyo$', '\.py\$class$', '\.obj$', '\.o$',
+      \ '\.so$', '\.egg$', '^\.git$', '^\.hg$', '^\.svn$', '^\.DS_Store',
+      \ '\.png$', '\.jpg$', '\.jpeg$', '\.bmp$', '\.svg$', '\.gif$',
+      \ '\.zip$', '\.gz$', '\.lock$', '\.swp$', '\.bak$', '\~$' ]
 
 " deoplete
 let g:deoplete#enable_at_startup = 1
 let g:deoplete#enable_smart_case = 1
 let g:deoplete#skip_chars = ['(', ')', ' ']
+
+" save buffer
+nnoremap <leader>fs :w<CR>
+nnoremap <leader>ps :wa <bar> :echo "saved all"<CR>
 
 "Linting with neomake
 " When writing a buffer (no delay).
@@ -166,8 +188,8 @@ imap <C-k> <Up>
 imap <C-l> <Right>
 
 " easy Ag
-nnoremap <leader>a :Ag ""<Left>
-nnoremap gA :Ag! <cword><CR>
+"nnoremap <leader>a :Ag ""<Left>
+"nnoremap gA :Ag! <cword><CR>
 set wildignore+=*.o,*.obj,.git,.pdf,tmp/,node_modules/
 let g:agprg='ag -S --nocolor --nogroup --column --ignore node_modules --ignore "*.min.js"'
 
@@ -227,7 +249,7 @@ set laststatus=2
 set noshowmode
 
 " rking/ag.vim
-let g:ag_prg='ag --vimgrep -S --path-to-ignore ~/.ignore'
+"let g:ag_prg='ag --vimgrep -S --path-to-ignore ~/.ignore'
 
 " themes style
 " Enable true color 启用终端24位色
@@ -336,7 +358,7 @@ call denite#custom#filter('matcher_ignore_globs', 'ignore_globs',
 
 "call denite#custom#option('default', 'auto_resume', 1)
 nnoremap <Leader>oo :Denite outline<CR>
-nnoremap <Leader>ff :Denite file_rec<CR>
+nnoremap <Leader>pf :Denite file_rec<CR>
 nnoremap <Leader>rr :Denite -resume<CR>
 nnoremap <Leader>/ :Denite grep<CR>
 nnoremap <Leader>ss :Denite line<CR>
@@ -345,6 +367,10 @@ nnoremap <Leader>bb :Denite buffer<CR>
 nnoremap <Leader>? :Denite grep:::`expand('<cword>')`<CR>
 call denite#custom#map('insert','<C-j>','<denite:move_to_next_line>','noremap')
 call denite#custom#map('insert','<C-k>','<denite:move_to_previous_line>','noremap')
+
+"narrow by path in grep source.
+call denite#custom#source('grep',
+  \ 'converters', ['converter/abbr_word'])
 
 " tabopen & split
 call denite#custom#map('insert', '<C-t>', '<denite:do_action:tabopen>')
