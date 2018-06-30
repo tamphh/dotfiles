@@ -124,6 +124,9 @@ let g:deoplete#skip_chars = ['(', ')', ' ']
 nnoremap <leader>fs :w<CR>
 nnoremap <leader>ps :wa <bar> :echo "saved all"<CR>
 
+" quit all buffers
+nnoremap <leader>pq :qa<CR>
+
 "Linting with neomake
 " When writing a buffer (no delay).
 call neomake#configure#automake('w')
