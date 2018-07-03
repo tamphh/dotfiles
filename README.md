@@ -28,4 +28,5 @@ Ag ignores:
   *.json
   tps-main.js
   *.min.*
-  *min.js```
+  *min.js
+  ```
