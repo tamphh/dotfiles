@@ -1,6 +1,10 @@
 export PATH="$HOME/.rbenv/bin:$PATH"
 eval "$(rbenv init -)"
 
+# Additional source
+export NVM_DIR="$HOME/.nvm"
+  . "/usr/local/opt/nvm/nvm.sh"
+
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
@@ -92,7 +96,7 @@ source $ZSH/oh-my-zsh.sh
 #  otherwise a new session is created where the name is $(pwd).
 alias tmnew='tmux new-session -A -s `pwd`'
 
-alias mux="tmuxinator"
+alias mux="cd ~; tmuxinator"
 
 # font config
 export LANG=en_US.UTF-8
@@ -108,7 +112,7 @@ alias zshrefresh="source ~/.zshrc"
 alias tst="tig status"
 
 # vim aliases
-alias vim_tp="cd ~/github/tinypulse-web; vim"
+alias vim_tp="cd ~/github/tp-web; vim"
 
 export EDITOR='vim'
 export ANDROID_HOME=/Users/$USER/Library/Android/sdk

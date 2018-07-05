@@ -94,7 +94,8 @@ set hlsearch                       " highlight all search matches
 set clipboard+=unnamed
 set timeoutlen=1000 ttimeoutlen=10
 set nomodeline                      " disable mode lines (security measure)
-
+set splitbelow
+set splitright
 
 packadd! matchit
 " Remap leader key to SPACE
@@ -102,6 +103,7 @@ let mapleader="\<SPACE>"
 
 " unbind defaut mappings
 map s <Nop>
+map K <Nop>
 
 " =====================================================================
 " NERDTree
@@ -125,7 +127,10 @@ nnoremap <leader>fs :w<CR>
 nnoremap <leader>ps :wa <bar> :echo "saved all"<CR>
 
 " quit all buffers
-nnoremap <leader>pq :qa<CR>
+nnoremap <leader>pq :qa<CR> "quit all buffers
+
+" method related things
+nnoremap <C-\> :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
 
 "Linting with neomake
 " When writing a buffer (no delay).
