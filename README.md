@@ -17,3 +17,16 @@ Then run "./filename.sh" to activate the script.
 # How to run .rb files
 Navigate to the directory of the file. 
 Run "ruby filename.rb".
+
+# Additional configs
+Ag ignores:
+  ```node_modules
+  public
+  .git
+  tmp/
+  *.cache
+  *.json
+  tps-main.js
+  *.min.*
+  *min.js
+  ```
