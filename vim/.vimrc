@@ -66,13 +66,14 @@ filetype plugin indent on
 " set number                         " show line number
 set nobackup
 set noswapfile
+"set nowrap
 set expandtab                      " use spaces, not tab characters
 set showmatch                      " show bracket matches
 set incsearch                      " show search results as I type
 set autoindent                     " set auto indent
 set tabstop=2                      " set indent to 2 spaces
 set shiftwidth=2
-set list listchars=tab:»·,trail:·  " show extra space characters
+set list listchars=tab:»·,trail:·,extends:>,precedes:<  " show extra space characters
 set backspace=2 " make backspace work like most other programs
 "set colorcolumn=120
 "set laststatus=2                   " always show status bar
@@ -129,8 +130,10 @@ nnoremap <leader>ps :wa <bar> :echo "saved all"<CR>
 " quit all buffers
 nnoremap <leader>pq :qa<CR> "quit all buffers
 
-" method related things
+" method definition related things
 nnoremap <C-\> :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
+nnoremap <C-[> :sp <CR>:exec("tag ".expand("<cword>"))<CR>
+nnoremap gd :exec("tag ".expand("<cword>"))<CR>
 
 "Linting with neomake
 " When writing a buffer (no delay).
