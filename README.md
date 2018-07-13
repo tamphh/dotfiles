@@ -5,7 +5,8 @@ This is the git repository for my dotfiles.
 stow
 
 # Quick start
-checkout source -> run setup.sh
+- Run git clone https://github.com/tamphh/dotfiles.git
+- Run setup.sh
 
 # How to run .sh files
 Navigate to the directory of the file. 
