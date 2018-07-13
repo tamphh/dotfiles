@@ -9,15 +9,15 @@ stow
 - Run setup.sh
 
 # How to run .sh files
-Navigate to the directory of the file. 
+- Navigate to the directory of the file. 
 
-Run "chmod +x filename.sh" to make the script executable. 
+- Run "chmod +x filename.sh" to make the script executable. 
 
-Then run "./filename.sh" to activate the script.
+- Then run "./filename.sh" to activate the script.
 
 # How to run .rb files
-Navigate to the directory of the file. 
-Run "ruby filename.rb".
+- Navigate to the directory of the file. 
+- Run "ruby filename.rb".
 
 # Additional configs
 Ag ignores:
