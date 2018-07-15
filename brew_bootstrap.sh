@@ -24,6 +24,7 @@ brew install --HEAD universal-ctags/universal-ctags/universal-ctags
 
 # Needed packages
 PACKAGES=(
+    git
     ag
     python
     python3
@@ -43,12 +44,21 @@ pip3 install neovim
 echo "Cleaning up..."
 brew cleanup
 
-echo "Installing cask..."
+# Install casks
 brew install caskroom/cask/brew-cask
 CASKS=(
     iterm2
 )
 echo "Installing cask apps..."
 brew cask install ${CASKS[@]}
+
+# Install fonts
+brew tap caskroom/fonts
+FONTS=(
+    font-source-code-pro
+    font-roboto
+)
+echo "Installing fonts..."
+brew cask install ${FONTS[@]}
 
 echo "Done"
