@@ -27,6 +27,9 @@ Plug 'tpope/vim-fugitive'
 "Plug 'jreybert/vimagit'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-commentary'
+Plug 'wincent/scalpel'
+Plug 'wincent/loupe'
 Plug 'lifepillar/vim-solarized8'
 "Plug 'bling/vim-airline'
 Plug 'itchyny/lightline.vim'
@@ -388,4 +391,6 @@ call denite#custom#map('insert', '<C-t>', '<denite:do_action:tabopen>')
 call denite#custom#map('insert', '<C-v>', '<denite:do_action:vsplit>')
 call denite#custom#map('insert', '<C-h>', '<denite:do_action:split>')
 
-
+" wincent
+" loupe
+let g:LoupeCenterResults=0
