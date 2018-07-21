@@ -122,10 +122,15 @@ let NERDTreeIgnore = [ '\.pyc$', '\.pyo$', '\.py\$class$', '\.obj$', '\.o$',
 
 " Like vim-vinegar.
 " Ref: https://www.youtube.com/watch?v=OgQW07saWb0&index=3&list=PLwJS-G75vM7kFO-yUkyNphxSIdbi_1NKX
-nnoremap <silent> <Leader>fd :let g:NerdLastFile=expand("%:t") <CR> <bar> :silent edit <C-R>=empty(expand('%')) ? '.' : expand('%:p:h')<CR><CR>
+let g:NerdLastFile = ''
+nnoremap <silent> <Leader>fd :let g:NerdLastFile=expand("%:t") <bar> :silent edit <C-R>=empty(expand('%')) ? '.' : expand('%:p:h')<CR><CR>
 " nnoremap <leader>nf :call search(g:NerdLastFile)<CR>
 " Key f to do this only available in nerdtree
-autocmd FileType nerdtree nmap <buffer> f :call search(g:NerdLastFile)<CR>
+" search pattern partly
+autocmd FileType nerdtree nnoremap <buffer> F :call search(g:NerdLastFile, 'w')<CR>
+" search pattern exaclty
+autocmd FileType nerdtree nnoremap <buffer> f :call
+  \ search('\<' .g:NerdLastFile . '\>') <bar> :echo g:NerdLastFile<CR>
 
 " deoplete
 let g:deoplete#enable_at_startup = 1
