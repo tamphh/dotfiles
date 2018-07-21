@@ -108,6 +108,9 @@ KEYTIMEOUT=1
 alias zshedit="vim ~/.zshrc"
 alias zshrefresh="source ~/.zshrc"
 
+# peco aliases
+alias files="find . -type file ! -path './.git/*' | peco"
+
 # tig aliases
 alias tst="tig status"
 
