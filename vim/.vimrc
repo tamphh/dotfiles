@@ -22,6 +22,7 @@ endif
 "Plug 'rking/ag.vim'
 "Plug 'wycats/nerdtree'
 Plug 'scrooloose/nerdtree'
+" Plug 'tpope/vim-vinegar'
 "Plug 'yggdroot/leaderf'
 Plug 'tpope/vim-fugitive'
 "Plug 'jreybert/vimagit'
@@ -29,7 +30,7 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-commentary'
 Plug 'wincent/scalpel'
-Plug 'wincent/loupe'
+" Plug 'wincent/loupe'
 Plug 'lifepillar/vim-solarized8'
 "Plug 'bling/vim-airline'
 Plug 'itchyny/lightline.vim'
@@ -46,10 +47,8 @@ Plug 'hiukkanen/vim-hamlc'
 Plug 'tpope/vim-cucumber'
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'neomake/neomake'
+" Plug 'henrik/vim-indexed-search'
 Plug 'google/vim-searchindex'
-" Plug 'pelodelfuego/vim-swoop'
-" Plug 'maxboisvert/vim-simple-complete'
-" Plug 'maralla/completor.vim'
 if has('nvim')
   Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
   Plug 'Shougo/denite.nvim'
@@ -121,6 +120,13 @@ let NERDTreeIgnore = [ '\.pyc$', '\.pyo$', '\.py\$class$', '\.obj$', '\.o$',
       \ '\.png$', '\.jpg$', '\.jpeg$', '\.bmp$', '\.svg$', '\.gif$',
       \ '\.zip$', '\.gz$', '\.lock$', '\.swp$', '\.bak$', '\~$' ]
 
+" Like vim-vinegar.
+" Ref: https://www.youtube.com/watch?v=OgQW07saWb0&index=3&list=PLwJS-G75vM7kFO-yUkyNphxSIdbi_1NKX
+nnoremap <silent> <Leader>fd :let g:NerdLastFile=expand("%:t") <CR> <bar> :silent edit <C-R>=empty(expand('%')) ? '.' : expand('%:p:h')<CR><CR>
+" nnoremap <leader>nf :call search(g:NerdLastFile)<CR>
+" Key f to do this only available in nerdtree
+autocmd FileType nerdtree nmap <buffer> f :call search(g:NerdLastFile)<CR>
+
 " deoplete
 let g:deoplete#enable_at_startup = 1
 let g:deoplete#enable_smart_case = 1
@@ -128,7 +134,7 @@ let g:deoplete#skip_chars = ['(', ')', ' ']
 
 " save buffer
 nnoremap <leader>fs :w<CR>
-nnoremap <leader>ps :wa <bar> :echo "saved all"<CR>
+nnoremap <leader>ps :wa <bar> :echo "written all"<CR>
 
 " quit all buffers
 nnoremap <leader>pq :qa<CR> "quit all buffers
@@ -160,7 +166,7 @@ hi VertSplit ctermbg=NONE guibg=NONE ctermfg=Green guifg=#839289
 autocmd ColorScheme * highlight VertSplit cterm=NONE ctermfg=Green ctermbg=NONE
 
 " rubocop
-let g:vimrubocop_config = '~/github/tinypulse-web/.rubocop.yml'
+let g:vimrubocop_config = '~/github/tp-web/.rubocop.yml'
 
 " rspec-cucumber.vim mappings
 nnoremap <Leader>T :call RunCurrentSpecFile()<CR>
@@ -211,7 +217,7 @@ let g:agprg='ag -S --nocolor --nogroup --column --ignore node_modules --ignore "
 "set foldmethod=syntax
 
 " Esc mapping
-inoremap fd <esc>
+" inoremap fd <esc>
 
 "clear highlight search
 " map <Leader>h :set hlsearch!<CR>
@@ -240,18 +246,18 @@ let g:lightline = {
   \              [ 'readonly', 'filename', 'modified' ]
   \     ]
   \   },
-	\   'component': {
-	\     'lineinfo': ' %3l:%-2v',
-	\   },
+  \   'component': {
+  \     'lineinfo': ' %3l:%-2v',
+  \   },
   \   'component_function': {
   \     'gitbranch': 'fugitive#head',
   \   }
   \ }
 let g:lightline.separator = {
-	\   'left': '', 'right': ''
+  \   'left': '', 'right': ''
   \}
 let g:lightline.subseparator = {
-	\   'left': '', 'right': '' 
+  \   'left': '', 'right': '' 
   \}
 let g:lightline.tabline = {
   \   'left': [ ['tabs'] ],
@@ -390,7 +396,3 @@ call denite#custom#source('grep',
 call denite#custom#map('insert', '<C-t>', '<denite:do_action:tabopen>')
 call denite#custom#map('insert', '<C-v>', '<denite:do_action:vsplit>')
 call denite#custom#map('insert', '<C-h>', '<denite:do_action:split>')
-
-" wincent
-" loupe
-let g:LoupeCenterResults=0
