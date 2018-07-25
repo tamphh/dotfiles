@@ -34,6 +34,7 @@ PACKAGES=(
     tig
     vim
     neovim
+    peco
 )
 echo "Installing needed packages..."
 brew install ${PACKAGES[@]}
