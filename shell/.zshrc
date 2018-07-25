@@ -111,11 +111,15 @@ alias zshrefresh="source ~/.zshrc"
 # peco aliases
 alias files="find . -type file ! -path './.git/*' | peco"
 
+# vim peco aliases
+alias filesvim="find . -type file ! -path './.git/*' | peco | xargs -o vim"
+
 # tig aliases
 alias tst="tig status"
 
 # vim aliases
 alias vim_tp="cd ~/github/tp-web; vim"
+alias vimrcedit="vim ~/.vimrc"
 
 export EDITOR='vim'
 export ANDROID_HOME=/Users/$USER/Library/Android/sdk
