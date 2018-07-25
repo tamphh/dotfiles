@@ -29,7 +29,7 @@ Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-commentary'
-Plug 'wincent/scalpel'
+" Plug 'wincent/scalpel'
 " Plug 'wincent/loupe'
 Plug 'lifepillar/vim-solarized8'
 "Plug 'bling/vim-airline'
@@ -142,12 +142,19 @@ nnoremap <leader>fs :w<CR>
 nnoremap <leader>ps :wa <bar> :echo "written all"<CR>
 
 " quit all buffers
-nnoremap <leader>pq :qa<CR> "quit all buffers
+nnoremap <leader>pq :qa<CR>
+" quit current buffer
+nnoremap <leader>q :q<CR>
+" quit all buffers but current one
+nnoremap <leader>O :only<CR>
 
 " method definition related things
 nnoremap <C-\> :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
 nnoremap <C-[> :sp <CR>:exec("tag ".expand("<cword>"))<CR>
 nnoremap gd :exec("tag ".expand("<cword>"))<CR>
+
+" find and replace in a buffer
+nnoremap c* *Ncgn
 
 "Linting with neomake
 " When writing a buffer (no delay).
@@ -346,10 +353,10 @@ set diffopt=vertical
 " execute pathogen#infect()
 
 " arrow keys to resize panes
-nnoremap <Leader><left> :vertical resize -1<CR>
-nnoremap <Leader><right> :vertical resize +1<CR>
-nnoremap <Leader><up> :resize -1<CR>
-nnoremap <Leader><down> :resize +1<CR>
+nnoremap <Leader><left> :vertical resize -2<CR>
+nnoremap <Leader><right> :vertical resize +2<CR>
+nnoremap <Leader><up> :resize -2<CR>
+nnoremap <Leader><down> :resize +2<CR>
 
 " simple complete
 "set complete-=t
