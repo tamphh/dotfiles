@@ -234,7 +234,8 @@ let g:agprg='ag -S --nocolor --nogroup --column --ignore node_modules --ignore "
 "clear highlight search
 " map <Leader>h :set hlsearch!<CR>
 map <Leader>sc :noh<CR>
-"nnoremap <Esc> :noh<CR><Esc>
+nnoremap <CR> :noh<CR>
+" nnoremap <Esc> :noh<CR><Esc>
 
 " airline
 "let g:airline#extensions#tabline#formatter = 'unique_tail'
