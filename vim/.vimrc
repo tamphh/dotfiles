@@ -20,7 +20,6 @@ endif
 " Make sure you use single quotes
 
 "Plug 'rking/ag.vim'
-"Plug 'wycats/nerdtree'
 Plug 'scrooloose/nerdtree'
 " Plug 'tpope/vim-vinegar'
 "Plug 'yggdroot/leaderf'
