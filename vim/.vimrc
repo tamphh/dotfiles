@@ -98,6 +98,10 @@ set timeoutlen=1000 ttimeoutlen=10
 set nomodeline                      " disable mode lines (security measure)
 set splitbelow
 set splitright
+set textwidth=0
+set wrapmargin=0
+set linebreak
+set showbreak=▶\ 
 
 packadd! matchit
 " Remap leader key to SPACE
