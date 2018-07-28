@@ -146,6 +146,8 @@ nnoremap <leader>pq :qa<CR>
 nnoremap <leader>q :q<CR>
 " quit all buffers but current one
 nnoremap <leader>O :only<CR>
+nnoremap [b :bp<CR> " buffer previous
+nnoremap ]b :bp<CR> " buffer next
 
 " method definition related things
 nnoremap <C-\> :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
