@@ -13,7 +13,7 @@
 # Main UI
 # ==============================================================================
 # color default           250             234
-color 'Author '         252             default            bold
+color 'Author '         yellow          default
 color 'Commit: '        white           default
 color 'Merge: '         45              default
 color id                167             default
@@ -21,7 +21,7 @@ color date              250             default
 color graph-commit      161             default
 color status            252             default
 color delimiter         90              default
-color cursor            234             7
+# color cursor            234             7
 
 # Help Page
 # ==============================================================================
@@ -33,7 +33,7 @@ color main-tracked      105             default             bold
 
 # Current Line
 # ==============================================================================
-color cursor            234             7
+color cursor            white           black               bold
 
 # Bottom Statusbar
 # ==============================================================================
