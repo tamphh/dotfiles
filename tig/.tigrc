@@ -1,5 +1,50 @@
 # Diff colors
-color diff-header       yellow  default
-color diff-index        blue    default
-color diff-chunk        white   blue
+# color diff-header       yellow  default
+# color diff-index        blue    default
+# color diff-chunk        white   blue
 #color diff-stat         white   blue
+
+# See: http://www.calmar.ws/vim/256-xterm-24bit-rgb-color-chart.html
+# See: http://jonas.nitro.dk/tig/tigrc.5.html
+#
+# Area                  Foreground      Background         Options
+# ==============================================================================
+
+# Main UI
+# ==============================================================================
+# color default           250             234
+color 'Author '         252             default            bold
+color 'Commit: '        white           default
+color 'Merge: '         45              default
+color id                167             default
+color date              250             default
+color graph-commit      161             default
+color status            252             default
+color delimiter         90              default
+color cursor            234             7
+
+# Help Page
+# ==============================================================================
+color help-group        161             default
+
+# Current Line
+# ==============================================================================
+color main-tracked      105             default             bold
+
+# Current Line
+# ==============================================================================
+color cursor            234             7
+
+# Bottom Statusbar
+# ==============================================================================
+color title-focus       234             250
+color title-blur        234             250
+
+# File Diffs
+# ==============================================================================
+color diff-stat         45              default
+color diff-index        14              default
+color diff-add          34              default
+color diff-del          202             default
+color diff-chunk        234             7
+color diff-header       yellow          default
