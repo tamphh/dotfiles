@@ -30,7 +30,8 @@ Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-commentary'
 " Plug 'wincent/scalpel'
 " Plug 'wincent/loupe'
-Plug 'lifepillar/vim-solarized8'
+"Plug 'lifepillar/vim-solarized8'
+Plug 'tamphh/vim-solarized8'
 "Plug 'bling/vim-airline'
 Plug 'itchyny/lightline.vim'
 " Plug 'scrooloose/syntastic'
@@ -84,9 +85,9 @@ set autoread                       " auto reload file
 set hlsearch                       " highlight all search matches
 "set hls
 "set cursorline                     " highlight current line
-"set smartcase                      " pay attention to case when caps are used
 "set relativenumber                 " show relative line numbers
-"set ignorecase                     " ignore case in search
+set ignorecase                     " ignore case in search
+set smartcase                      " pay attention to case when caps are used
 "set vb                             " enable visual bell (disable audio bell)
 "set ruler                          " show row and column in footer
 "set nofoldenable                   " disable code folding
@@ -107,7 +108,7 @@ packadd! matchit
 " Remap leader key to SPACE
 let mapleader="\<SPACE>"
 
-" unbind defaut mappings
+" unbind/unmap defaut mappings
 map s <Nop>
 map K <Nop>
 
@@ -130,9 +131,9 @@ nnoremap <silent> <Leader>fd :let g:NerdLastFile=expand("%:t") <bar> :silent edi
 " nnoremap <leader>nf :call search(g:NerdLastFile)<CR>
 " Key f to do this only available in nerdtree
 " search pattern partly
-autocmd FileType nerdtree nnoremap <buffer> F :call search(g:NerdLastFile, 'w')<CR>
+autocmd FileType nerdtree nnoremap <silent> <buffer> F :call search(g:NerdLastFile, 'w')<CR>
 " search pattern exaclty
-autocmd FileType nerdtree nnoremap <buffer> f :call
+autocmd FileType nerdtree nnoremap <silent> <buffer> f :call
   \ search('\<' .g:NerdLastFile . '\>') <bar> :echo g:NerdLastFile<CR>
 
 " deoplete
@@ -160,6 +161,7 @@ nnoremap gd :exec("tag ".expand("<cword>"))<CR>
 
 " find and replace in a buffer
 nnoremap c* *Ncgn
+nnoremap <leader>e :%s/\(<C-R>=expand("<cword>")<CR>\)//gc<Left><Left><Left>
 
 "Linting with neomake
 " When writing a buffer (no delay).
@@ -331,11 +333,11 @@ if has("mac") || has("gui_macvim") || has("gui_mac")
   " absolute path  (/something/src/foo.txt)
   nnoremap <leader>cF :let @*=expand("%:p") <bar> :echo "absolute path copied"<CR>
 
-  " filename       (foo.txt)
+  " only filename       (foo.txt)
   nnoremap <leader>ct :let @*=expand("%:t") <bar> :echo "filename copied"<CR>
 
-  " directory name (/something/src)
-  nnoremap <leader>ch :let @*=expand("%:p:h") <bar> :echo "directory name copied"<CR>
+  " only directory name (/something/src)
+  nnoremap <leader>cd :let @*=expand("%:p:h") <bar> :echo "directory name copied"<CR>
 endif
 
 " copy current file name (relative/absolute) to system clipboard (Linux version)
