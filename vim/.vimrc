@@ -158,6 +158,7 @@ nnoremap ]b :bp<CR> " buffer next
 nnoremap <C-\> :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
 nnoremap <C-[> :sp <CR>:exec("tag ".expand("<cword>"))<CR>
 nnoremap gd :exec("tag ".expand("<cword>"))<CR>
+nnoremap gD g]
 
 " find and replace in a buffer
 nnoremap c* *Ncgn
