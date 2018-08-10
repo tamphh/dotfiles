@@ -31,3 +31,5 @@ Ag ignores:
   *.min.*
   *min.js
   ```
+# Additional configs for some Mac apps
+iTerm2 tmux copy mode: Enable clipboard access 
