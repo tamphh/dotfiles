@@ -103,7 +103,7 @@ set splitright
 set textwidth=0
 set wrapmargin=0
 set linebreak
-set showbreak=..
+set showbreak=‿ " ..
 
 packadd! matchit
 " Remap leader key to SPACE
@@ -185,7 +185,7 @@ colorscheme solarized8
 set fillchars=vert:│
 hi VertSplit ctermbg=NONE guibg=NONE ctermfg=Green guifg=#839289
 autocmd ColorScheme * highlight VertSplit cterm=NONE ctermfg=Green ctermbg=NONE
-hi NonText ctermfg=darkyellow guifg=darkyellow
+hi NonText ctermfg=darkcyan guifg=darkcyan
 
 " rubocop
 let g:vimrubocop_config = '~/github/tp-web/.rubocop.yml'
