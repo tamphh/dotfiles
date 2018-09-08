@@ -121,6 +121,9 @@ alias tst="tig status"
 alias vim_tp="cd ~/github/tp-web; vim"
 alias vimrcedit="vim ~/.vimrc"
 
+# rspec
+alias rspec="bundle exec rspec"
+
 export EDITOR='vim'
 export ANDROID_HOME=/Users/$USER/Library/Android/sdk
 export PATH=${PATH}:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools

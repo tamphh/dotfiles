@@ -202,6 +202,7 @@ nnoremap <Leader>a :call RunAllSpecs()<CR>
 nnoremap <Leader>wv :vsplit<CR>
 nnoremap <Leader>wh :split<CR>
 nnoremap <Leader>wr <C-w>r<CR>
+nnoremap <Leader>wt :sbp<bar>wincmd p<bar>wincmd T<CR>
 
 nnoremap <Leader><Leader> :e#<CR>
 
@@ -245,7 +246,7 @@ let g:agprg='ag -S --nocolor --nogroup --column --ignore node_modules --ignore "
 " map <Leader>h :set hlsearch!<CR>
 map <Leader>sc :noh<CR>
 nnoremap <CR> :noh<CR>
-" nnoremap <Esc> :noh<CR><Esc>
+nnoremap <Esc> :noh<CR><Esc>
 
 " airline
 "let g:airline#extensions#tabline#formatter = 'unique_tail'
