@@ -22,7 +22,7 @@ endif
 "Plug 'rking/ag.vim'
 Plug 'scrooloose/nerdtree'
 " Plug 'tpope/vim-vinegar'
-"Plug 'yggdroot/leaderf'
+Plug 'yggdroot/leaderf'
 Plug 'tpope/vim-fugitive'
 "Plug 'jreybert/vimagit'
 Plug 'tpope/vim-surround'
@@ -163,6 +163,7 @@ nnoremap gD g]
 
 " find and replace in a buffer
 nnoremap c* *Ncgn
+nnoremap * *N
 nnoremap <leader>e :%s/\(<C-R>=expand("<cword>")<CR>\)//gc<Left><Left><Left>
 
 "Linting with neomake
@@ -333,7 +334,7 @@ endif
 " copy current file name (relative/absolute) to system clipboard
 if has("mac") || has("gui_macvim") || has("gui_mac")
   " relative path  (src/foo.txt)
-  nnoremap <C-g> :let @*=expand("%") <bar> :echo "\"" . expand("%") . "\"" . " relative path copied"<CR>
+  nnoremap <C-g> :let @*=expand("%") <bar> :let @0=expand("%") <bar> :echo "\"" . expand("%") . "\"" . " relative path copied"<CR>
   nnoremap <leader>cf :let @*=expand("%") <bar> :echo "relative path copied"<CR>
   " nnoremap <leader>cf :let @*=expand("%") <bar> :echo "\"" . expand("%") . "\"" . " copied"<CR>
 
