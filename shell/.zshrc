@@ -123,6 +123,8 @@ alias vimrcedit="vim ~/.vimrc"
 
 # rspec
 alias rspec="bundle exec rspec"
+# rake
+alias rake="bundle exec rake"
 
 export EDITOR='vim'
 export ANDROID_HOME=/Users/$USER/Library/Android/sdk
@@ -133,3 +135,7 @@ export PATH=$PATH:/usr/local/sbin
 export TERM=xterm-256color
 
 export PATH="$HOME/.cargo/bin:$PATH"
+
+# export PATH="$(brew --prefix qt@5.5)/bin:$PATH"
+
+export GREP_COLOR='00;33'
