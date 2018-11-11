@@ -40,8 +40,9 @@ Plug 'ngmy/vim-rubocop'
 Plug 'vim-ruby/vim-ruby'
 Plug 'casecommons/vim-rails'
 Plug 'pangloss/vim-javascript'
-Plug 'maksimr/vim-jsbeautify'
-Plug 'mgechev/vim-jsx'
+Plug 'mxw/vim-jsx'
+" Plug 'maksimr/vim-jsbeautify'
+" Plug 'mgechev/vim-jsx'
 Plug 'chriseppstein/vim-haml'
 Plug 'hiukkanen/vim-hamlc'
 Plug 'tpope/vim-cucumber'
@@ -49,6 +50,8 @@ Plug 'ludovicchabant/vim-gutentags'
 Plug 'neomake/neomake'
 " Plug 'henrik/vim-indexed-search'
 Plug 'google/vim-searchindex'
+Plug 'jiangmiao/auto-pairs'
+Plug 'mattn/emmet-vim'
 if has('nvim')
   Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
   Plug 'Shougo/denite.nvim'
@@ -192,10 +195,10 @@ hi NonText ctermfg=darkcyan guifg=darkcyan
 let g:vimrubocop_config = '~/github/tp-web/.rubocop.yml'
 
 " rspec-cucumber.vim mappings
-nnoremap <Leader>T :call RunCurrentSpecFile()<CR>
-nnoremap <Leader>t :call RunNearestSpec()<CR>
-nnoremap <Leader>r :call RunLastSpec()<CR>
-nnoremap <Leader>a :call RunAllSpecs()<CR>
+" nnoremap <Leader>T :call RunCurrentSpecFile()<CR>
+" nnoremap <Leader>t :call RunNearestSpec()<CR>
+" nnoremap <Leader>r :call RunLastSpec()<CR>
+" nnoremap <Leader>a :call RunAllSpecs()<CR>
 " Change in plugin code instead :))
 "let g:rspec_command = "!rspec --color {spec}"
 
@@ -373,10 +376,13 @@ set diffopt=vertical
 " execute pathogen#infect()
 
 " arrow keys to resize panes
-nnoremap <Leader><left> :vertical resize -2<CR>
-nnoremap <Leader><right> :vertical resize +2<CR>
+nnoremap <Leader><left> :vertical resize -4<CR>
+nnoremap <Leader><right> :vertical resize +4<CR>
 nnoremap <Leader><up> :resize -2<CR>
 nnoremap <Leader><down> :resize +2<CR>
+
+" break line
+nnoremap K i<CR><ESC>
 
 " simple complete
 "set complete-=t
@@ -388,6 +394,20 @@ set completeopt-=longest
 " if &completeopt !~# 'noinsert\|noselect'
 "   set completeopt+=noselect
 " endif
+
+" auto-pairs
+let g:AutoPairsMapCh=0
+
+" vim-j
+let g:user_emmet_install_global = 0 " don't enable for all file types
+let g:user_emmet_settings = {'javascript.jsx': {'extends': 'jsx'}}
+autocmd FileType html,css,javascript.jsx,scss EmmetInstall
+let g:jsx_ext_required = 1    " Syntax highlighting and indenting only for .jsx files
+
+" emmet
+let g:user_emmet_leader_key = '<c-e>'
+let g:user_emmet_mode='i'
+"parse all .js/.jsx file as jsx type
 
 " denite
 " Denite custom highlights
