@@ -50,6 +50,7 @@ brew cleanup
 brew install caskroom/cask/brew-cask
 CASKS=(
     iterm2
+    spectacle
 )
 echo "Installing cask apps..."
 brew cask install ${CASKS[@]}
