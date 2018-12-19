@@ -36,7 +36,7 @@ Plug 'tamphh/vim-solarized8'
 Plug 'itchyny/lightline.vim'
 " Plug 'scrooloose/syntastic'
 Plug 'thoughtbot/vim-rspec'
-Plug 'ngmy/vim-rubocop'
+Plug 'phongnh/vim-rubocop'
 Plug 'vim-ruby/vim-ruby'
 Plug 'casecommons/vim-rails'
 Plug 'pangloss/vim-javascript'
@@ -338,19 +338,19 @@ endif
 if has("mac") || has("gui_macvim") || has("gui_mac")
   " relative path  (src/foo.txt)
   nnoremap <C-g> :let @*=expand("%") <bar> :let @0=expand("%") <bar> :echo "\"" . expand("%") . "\"" . " relative path copied"<CR>
-  nnoremap <leader>cf :let @*=expand("%") <bar> :echo "relative path copied"<CR>
+  nnoremap <leader>cf :let @*=expand("%") <bar> :echo "\"" . expand("%") . "\"" . " relative path copied"<CR>
   " nnoremap <leader>cf :let @*=expand("%") <bar> :echo "\"" . expand("%") . "\"" . " copied"<CR>
 
   " absolute path  (/something/src/foo.txt)
-  nnoremap <leader>cF :let @*=expand("%:p") <bar> :echo "absolute path copied"<CR>
+  nnoremap <leader>cF :let @*=expand("%:p") <bar> :echo "\"" . expand("%:p") . "\"" . " absolute path copied"<CR>
   " nnoremap <leader>cF :let @*=expand("%:p") <bar> :echo "\"" . expand("%:p") . "\"" . " copied"<CR>
 
   " only filename       (foo.txt)
-  nnoremap <leader>ct :let @*=expand("%:t") <bar> :echo "filename copied"<CR>
+  nnoremap <leader>ct :let @*=expand("%:t") <bar> :echo "\"" . expand("%:t") . "\"" . " filename copied"<CR>
   " nnoremap <leader>ct :let @*=expand("%:t") <bar> :echo "\"" . expand("%:t") . "\"" . " copied"<CR>
 
   " only directory name (/something/src)
-  nnoremap <leader>cd :let @*=expand("%:p:h") <bar> :echo "directory name copied"<CR>
+  nnoremap <leader>cd :let @*=expand("%:p:h") <bar> :echo "\"" . expand("%:p:h") . "\"" . " directory name copied"<CR>
   " nnoremap <leader>cd :let @*=expand("%:p:h") <bar> :echo "\"" . expand("%:p:h") . "\"" . " copied"<CR>
 endif
 
