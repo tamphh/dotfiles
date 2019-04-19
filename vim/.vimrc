@@ -35,7 +35,9 @@ Plug 'tamphh/vim-solarized8'
 "Plug 'bling/vim-airline'
 Plug 'itchyny/lightline.vim'
 " Plug 'scrooloose/syntastic'
-Plug 'thoughtbot/vim-rspec'
+" Plug 'thoughtbot/vim-rspec'
+Plug 'janko-m/vim-test'
+Plug 'jebaum/vim-tmuxify'
 Plug 'phongnh/vim-rubocop'
 Plug 'vim-ruby/vim-ruby'
 Plug 'casecommons/vim-rails'
@@ -51,7 +53,7 @@ Plug 'neomake/neomake'
 " Plug 'henrik/vim-indexed-search'
 Plug 'google/vim-searchindex'
 Plug 'jiangmiao/auto-pairs'
-Plug 'mattn/emmet-vim'
+" Plug 'mattn/emmet-vim'
 if has('nvim')
   Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
   Plug 'Shougo/denite.nvim'
@@ -98,7 +100,7 @@ set smartcase                      " pay attention to case when caps are used
 "set wildmenu                       " enable bash style tab completion
 "set wildmode=list:longest,full
 "set tags=./tags; " Set tags directory
-set clipboard+=unnamed
+" set clipboard+=unnamed
 set timeoutlen=1000 ttimeoutlen=10
 set nomodeline                      " disable mode lines (security measure)
 set splitbelow
@@ -373,6 +375,7 @@ endif
 set diffopt=vertical
 
 " pathogen
+" execute
 " execute pathogen#infect()
 
 " arrow keys to resize panes
@@ -408,6 +411,11 @@ let g:jsx_ext_required = 1    " Syntax highlighting and indenting only for .jsx 
 let g:user_emmet_leader_key = '<c-e>'
 let g:user_emmet_mode='i'
 "parse all .js/.jsx file as jsx type
+
+" yan & clipboard
+nnoremap <leader>y "+y
+xnoremap <leader>y "+y
+noremap <leader>p "+p
 
 " denite
 " Denite custom highlights
