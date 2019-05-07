@@ -429,7 +429,7 @@ call denite#custom#var('grep', 'recursive_opts', [])
 call denite#custom#var('grep', 'pattern_opt', [])
 call denite#custom#var('grep', 'separator', ['--'])
 call denite#custom#var('grep', 'final_opts', [])
-call denite#custom#var('file_rec', 'command',
+call denite#custom#var('file/rec', 'command',
   \ ['ag', '--follow', '--nocolor', '--nogroup', '-g', ''])
 " ignores files
 call denite#custom#filter('matcher_ignore_globs', 'ignore_globs',
@@ -438,7 +438,7 @@ call denite#custom#filter('matcher_ignore_globs', 'ignore_globs',
 
 "call denite#custom#option('default', 'auto_resume', 1)
 nnoremap <Leader>oo :Denite outline<CR>
-nnoremap <Leader>pf :Denite file_rec<CR>
+nnoremap <Leader>pf :Denite file/rec<CR>
 nnoremap <Leader>rr :Denite -resume<CR>
 nnoremap <Leader>/ :Denite grep<CR>
 nnoremap <Leader>ss :Denite line<CR>
@@ -456,3 +456,12 @@ call denite#custom#source('grep',
 call denite#custom#map('insert', '<C-t>', '<denite:do_action:tabopen>')
 call denite#custom#map('insert', '<C-v>', '<denite:do_action:vsplit>')
 call denite#custom#map('insert', '<C-h>', '<denite:do_action:split>')
+
+" Deoplete
+call deoplete#custom#option({
+      \ 'auto_complete_delay': 200,
+      \ 'auto_refresh_delay': 80,
+      \ 'smart_case': v:true,
+      \ 'refresh_always': v:false,
+      \ 'max_list': 50,
+      \ })
