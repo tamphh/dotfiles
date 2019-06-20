@@ -6,6 +6,8 @@ stow
 
 # Quick start
 - Run git clone https://github.com/tamphh/dotfiles.git
+- Install brew
+- Install stow: ```brew install stow```
 - Run setup.sh
 
 # How to run .sh files
