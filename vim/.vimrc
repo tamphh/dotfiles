@@ -58,7 +58,8 @@ if has('nvim')
   Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
   Plug 'Shougo/denite.nvim'
 else
-  Plug 'Shougo/denite.nvim'
+  " Plug 'Shougo/denite.nvim'
+  Plug 'SpaceVim/denite.nvim'
   Plug 'Shougo/deoplete.nvim'
   Plug 'roxma/nvim-yarp'
   Plug 'roxma/vim-hug-neovim-rpc'
