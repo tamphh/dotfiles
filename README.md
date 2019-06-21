@@ -21,7 +21,7 @@ stow
 
 # How to run .rb files
 - Navigate to the directory of the file. 
-- Run "ruby filename.rb".
+- Execute ```ruby filename.rb```.
 
 # Additional configs
 Ag ignores:
