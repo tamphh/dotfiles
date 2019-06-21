@@ -10,7 +10,7 @@ stow
 - Install brew
 - Install stow: ```brew install stow```
 - Run setup.sh
-- Optional: ```mv ~/dotfiles ~/.dotfiles``` if it's needed to be make hidden.
+- Optional: ```mv ~/dotfiles ~/.dotfiles``` if it's needed to be made hidden.
 
 # How to run .sh files
 - Navigate to the directory of the file. 
