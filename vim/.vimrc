@@ -463,6 +463,6 @@ call deoplete#custom#option({
       \ 'auto_complete_delay': 200,
       \ 'auto_refresh_delay': 80,
       \ 'smart_case': v:true,
-      \ 'refresh_always': v:false,
+      \ 'refresh_always': v:true,
       \ 'max_list': 50,
       \ })
