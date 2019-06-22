@@ -1,5 +1,5 @@
-name: tp-web
-root: ~/github/tp-web
+name: thanos
+root: ~/github/thanos-backend
 
 # Optional tmux socket
 # socket_name: foo
