@@ -36,6 +36,7 @@ PACKAGES=(
     neovim
     peco
     ranger
+    bat
 )
 echo "Installing needed packages..."
 brew install ${PACKAGES[@]}
@@ -50,6 +51,7 @@ brew cleanup
 brew install caskroom/cask/brew-cask
 CASKS=(
     iterm2
+    alacritty
     spectacle
 )
 echo "Installing cask apps..."
