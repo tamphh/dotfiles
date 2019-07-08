@@ -127,6 +127,12 @@ alias rspec="bundle exec rspec"
 # rake
 alias rake="bundle exec rake"
 
+# auto-jump
+[ -f /usr/local/etc/profile.d/autojump.sh ] && . /usr/local/etc/profile.d/autojump.sh
+
+# fzf keybindings & autocompletion
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
 export EDITOR='vim'
 export ANDROID_HOME=/Users/$USER/Library/Android/sdk
 export PATH=${PATH}:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools
