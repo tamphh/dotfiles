@@ -38,7 +38,6 @@ PACKAGES=(
     peco
     ranger
     bat
-    autojump
     fzf
 )
 echo "Installing needed packages..."

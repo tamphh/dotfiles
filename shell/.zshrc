@@ -127,9 +127,6 @@ alias rspec="bundle exec rspec"
 # rake
 alias rake="bundle exec rake"
 
-# auto-jump
-[ -f /usr/local/etc/profile.d/autojump.sh ] && . /usr/local/etc/profile.d/autojump.sh
-
 # fzf keybindings & autocompletion
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
