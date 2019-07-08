@@ -31,12 +31,15 @@ PACKAGES=(
     stow
     tree
     tmux
+    reattach-to-user-namespace
     tig
     vim
     neovim
     peco
     ranger
     bat
+    autojump
+    fzf
 )
 echo "Installing needed packages..."
 brew install ${PACKAGES[@]}
