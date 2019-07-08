@@ -24,7 +24,7 @@ stow
 - Execute ```ruby filename.rb```.
 
 # Additional configs
-Ag ignores:
+### ```Ag``` ignores:
   ```node_modules
   public
   .git
@@ -35,5 +35,12 @@ Ag ignores:
   *.min.*
   *min.js
   ```
+
+### ```fzf``` keybindings & autocompletion
+Source: https://github.com/junegunn/fzf#using-homebrew-or-linuxbrew
+```sh
+# To install useful key bindings and fuzzy completion:
+$(brew --prefix)/opt/fzf/install
+```
 # Additional configs for some Mac apps
 iTerm2 tmux copy mode: Enable clipboard access 
