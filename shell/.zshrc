@@ -130,6 +130,13 @@ alias rake="bundle exec rake"
 # fzf keybindings & autocompletion
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
+# fzf Solarized theme
+export FZF_DEFAULT_OPTS='
+  --color=bg+:#073642,bg:#002b36,spinner:#719e07,hl:#719e07
+  --color=fg:#839496,header:#586e75,info:#cb4b16,pointer:#719e07
+  --color=marker:#719e07,fg+:#839496,prompt:#719e07,hl+:#719e07
+'
+
 export EDITOR='vim'
 export ANDROID_HOME=/Users/$USER/Library/Android/sdk
 export PATH=${PATH}:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools
