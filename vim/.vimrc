@@ -52,15 +52,11 @@ Plug 'neomake/neomake'
 " Plug 'henrik/vim-indexed-search'
 Plug 'google/vim-searchindex'
 Plug 'jiangmiao/auto-pairs'
-" Plug 'mattn/emmet-vim'"
 Plug '/usr/local/opt/fzf'
 Plug 'junegunn/fzf.vim'
 if has('nvim')
   Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-  Plug 'Shougo/denite.nvim'
 else
-  " Plug 'Shougo/denite.nvim'
-  Plug 'SpaceVim/denite.nvim'
   Plug 'Shougo/deoplete.nvim'
   Plug 'roxma/nvim-yarp'
   Plug 'roxma/vim-hug-neovim-rpc'
@@ -409,58 +405,26 @@ let g:user_emmet_settings = {'javascript.jsx': {'extends': 'jsx'}}
 autocmd FileType html,css,javascript.jsx,scss EmmetInstall
 let g:jsx_ext_required = 1    " Syntax highlighting and indenting only for .jsx files
 
-" emmet
-let g:user_emmet_leader_key = '<c-e>'
-let g:user_emmet_mode='i'
-"parse all .js/.jsx file as jsx type
-
 " yan & clipboard
 nnoremap <leader>y "+y
 xnoremap <leader>y "+y
 noremap <leader>p "+p
 
-" denite
-" Denite custom highlights
-call denite#custom#option('_', 'highlight_matched_range', 'None')
-call denite#custom#option('_', 'highlight_matched_char', 'Function')
-" use ag for file & content search
-call denite#custom#var('grep', 'command', ['ag'])
-call denite#custom#var('grep', 'default_opts',
-    \ ['-i', '--vimgrep'])
-call denite#custom#var('grep', 'recursive_opts', [])
-call denite#custom#var('grep', 'pattern_opt', [])
-call denite#custom#var('grep', 'separator', ['--'])
-call denite#custom#var('grep', 'final_opts', [])
-call denite#custom#var('file/rec', 'command',
-  \ ['ag', '--follow', '--nocolor', '--nogroup', '-g', ''])
-" ignores files
-call denite#custom#filter('matcher_ignore_globs', 'ignore_globs',
-  \ [ '.git/', '.ropeproject/', '__pycache__/',
-  \ 'venv/', 'images/', '*.min.*', 'img/', 'fonts/'])
-
-"call denite#custom#option('default', 'auto_resume', 1)
-nnoremap <Leader>oo :Denite outline<CR>
-" nnoremap <Leader>pf :Denite file/rec<CR>
-nnoremap <Leader>rr :Denite -resume<CR>
-nnoremap <Leader>/ :Denite grep<CR>
-nnoremap <Leader>ss :Denite line<CR>
-nnoremap <Leader>bb :Denite buffer<CR>
-"grep with word under cursor
-nnoremap <Leader>? :Denite grep:::`expand('<cword>')`<CR>
-call denite#custom#map('insert','<C-j>','<denite:move_to_next_line>','noremap')
-call denite#custom#map('insert','<C-k>','<denite:move_to_previous_line>','noremap')
-
-"narrow by path in grep source.
-call denite#custom#source('grep',
-  \ 'converters', ['converter/abbr_word'])
-
-" tabopen & split
-call denite#custom#map('insert', '<C-t>', '<denite:do_action:tabopen>')
-call denite#custom#map('insert', '<C-v>', '<denite:do_action:vsplit>')
-call denite#custom#map('insert', '<C-h>', '<denite:do_action:split>')
-
 " fzf
+nnoremap <Leader>f :Files<CR>
+" all files
 nnoremap <Leader>pf :Files<CR>
+" sibling files
+nnoremap <silent> <leader>sf :Files <C-r>=expand("%:h")<CR>/<CR>
+nnoremap <Leader>/ :Ag<Space>
+nnoremap g/ :Ag!<Space>
+"grep with word under cursor
+nnoremap <Leader>? :Ag <C-R><C-W><CR>
+nnoremap g? :Ag! <C-R><C-W><CR>
+nnoremap <Leader>ss :BLines<CR>
+nnoremap <Leader>sl :Lines<CR>
+nnoremap <Leader>bb :History<CR>
+
 " An action can be a reference to a function that processes selected lines
 function! s:build_quickfix_list(lines)
   call setqflist(map(copy(a:lines), '{ "filename": v:val }'))
@@ -477,6 +441,10 @@ let g:fzf_action = {
 " Default fzf layout
 " - down / up / left / right
 let g:fzf_layout = { 'down': '~50%' }
+
+" reverse layout to top-down, scroll inside preview with c-n, c-p
+" Ref: https://github.com/junegunn/fzf/issues/1057#issuecomment-339347148
+let $FZF_DEFAULT_OPTS = '--reverse --bind ctrl-p:preview-up --bind ctrl-n:preview-down'
 
 " Ref: https://github.com/phongnh/fzf-settings.vim/blob/master/plugin/fzf_settings.vim for more advanced fzf command settings
 
@@ -495,6 +463,14 @@ let g:fzf_colors =
   \ 'marker':  ['fg', 'Keyword'],
   \ 'spinner': ['fg', 'Label'],
   \ 'header':  ['fg', 'Comment'] }
+
+" Augmenting Ag command using fzf#vim#with_preview function
+" For Rg, ref: https://github.com/junegunn/fzf.vim#advanced-customization
+command! -bang -nargs=* Ag
+  \ call fzf#vim#ag(<q-args>,
+  \                 <bang>0 ? fzf#vim#with_preview('right:50%:hidden', '?')
+  \                         : fzf#vim#with_preview('right:50%:hidden', '?'),
+  \                 <bang>0)
 
 " Deoplete
 call deoplete#custom#option({
