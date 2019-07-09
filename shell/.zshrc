@@ -127,8 +127,18 @@ alias rspec="bundle exec rspec"
 # rake
 alias rake="bundle exec rake"
 
+# bat
+export BAT_THEME="TwoDark"
+
 # fzf keybindings & autocompletion
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+alias fzfp="fzf --preview '~/bin/file_preview {}'"
+
+# ~/.ignore
+# ~/projects/.ignore
+# export FZF_DEFAULT_COMMAND='ag --nocolor --skip-vcs-ignores --hidden -l -g ""'
+export FZF_DEFAULT_COMMAND='ag --nocolor -l -g ""'
 
 # fzf Solarized theme
 export FZF_DEFAULT_OPTS='
