@@ -478,6 +478,8 @@ let g:fzf_action = {
 " - down / up / left / right
 let g:fzf_layout = { 'down': '~50%' }
 
+" Ref: https://github.com/phongnh/fzf-settings.vim/blob/master/plugin/fzf_settings.vim for more advanced fzf command settings
+
 " Customize fzf colors to match your color scheme
 let g:fzf_colors =
 \ { 'fg':      ['fg', 'Normal'],
