@@ -22,7 +22,6 @@ endif
 "Plug 'rking/ag.vim'
 Plug 'scrooloose/nerdtree'
 " Plug 'tpope/vim-vinegar'
-Plug 'yggdroot/leaderf'
 Plug 'tpope/vim-fugitive'
 "Plug 'jreybert/vimagit'
 Plug 'tpope/vim-surround'
@@ -53,7 +52,9 @@ Plug 'neomake/neomake'
 " Plug 'henrik/vim-indexed-search'
 Plug 'google/vim-searchindex'
 Plug 'jiangmiao/auto-pairs'
-" Plug 'mattn/emmet-vim'
+" Plug 'mattn/emmet-vim'"
+Plug '/usr/local/opt/fzf'
+Plug 'junegunn/fzf.vim'
 if has('nvim')
   Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
   Plug 'Shougo/denite.nvim'
@@ -439,7 +440,7 @@ call denite#custom#filter('matcher_ignore_globs', 'ignore_globs',
 
 "call denite#custom#option('default', 'auto_resume', 1)
 nnoremap <Leader>oo :Denite outline<CR>
-nnoremap <Leader>pf :Denite file/rec<CR>
+" nnoremap <Leader>pf :Denite file/rec<CR>
 nnoremap <Leader>rr :Denite -resume<CR>
 nnoremap <Leader>/ :Denite grep<CR>
 nnoremap <Leader>ss :Denite line<CR>
@@ -457,6 +458,41 @@ call denite#custom#source('grep',
 call denite#custom#map('insert', '<C-t>', '<denite:do_action:tabopen>')
 call denite#custom#map('insert', '<C-v>', '<denite:do_action:vsplit>')
 call denite#custom#map('insert', '<C-h>', '<denite:do_action:split>')
+
+" fzf
+nnoremap <Leader>pf :Files<CR>
+" An action can be a reference to a function that processes selected lines
+function! s:build_quickfix_list(lines)
+  call setqflist(map(copy(a:lines), '{ "filename": v:val }'))
+  copen
+  cc
+endfunction
+
+let g:fzf_action = {
+  \ 'ctrl-q': function('s:build_quickfix_list'),
+  \ 'ctrl-t': 'tab split',
+  \ 'ctrl-h': 'split',
+  \ 'ctrl-v': 'vsplit' }
+
+" Default fzf layout
+" - down / up / left / right
+let g:fzf_layout = { 'down': '~50%' }
+
+" Customize fzf colors to match your color scheme
+let g:fzf_colors =
+\ { 'fg':      ['fg', 'Normal'],
+  \ 'bg':      ['bg', 'Normal'],
+  \ 'hl':      ['fg', 'Comment'],
+  \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+  \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+  \ 'hl+':     ['fg', 'Statement'],
+  \ 'info':    ['fg', 'PreProc'],
+  \ 'border':  ['fg', 'Ignore'],
+  \ 'prompt':  ['fg', 'Conditional'],
+  \ 'pointer': ['fg', 'Exception'],
+  \ 'marker':  ['fg', 'Keyword'],
+  \ 'spinner': ['fg', 'Label'],
+  \ 'header':  ['fg', 'Comment'] }
 
 " Deoplete
 call deoplete#custom#option({
