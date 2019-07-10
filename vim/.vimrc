@@ -382,6 +382,9 @@ nnoremap <Leader><right> :vertical resize +4<CR>
 nnoremap <Leader><up> :resize -2<CR>
 nnoremap <Leader><down> :resize +2<CR>
 
+" refresh .vimrc
+nnoremap <Leader>vv :so ~/.vimrc<CR>
+
 " break line
 nnoremap K i<CR><ESC>
 
@@ -411,19 +414,19 @@ xnoremap <leader>y "+y
 noremap <leader>p "+p
 
 " fzf
-nnoremap <Leader>f :Files<CR>
+nnoremap <silent> <Leader>f :Files<CR>
 " all files
-nnoremap <Leader>pf :Files<CR>
+nnoremap <silent> <Leader>pf :Files<CR>
 " sibling files
-nnoremap <silent> <leader>sf :Files <C-r>=expand("%:h")<CR>/<CR>
-nnoremap <Leader>/ :Ag<Space>
+nnoremap <silent> <leader>ff :Files <C-r>=expand("%:h")<CR>/<CR>
+nnoremap <silent> <Leader>/ :Ag<Space>
 nnoremap g/ :Ag!<Space>
 "grep with word under cursor
-nnoremap <Leader>? :Ag <C-R><C-W><CR>
+nnoremap <silent> <Leader>? :Ag <C-R><C-W><CR>
 nnoremap g? :Ag! <C-R><C-W><CR>
-nnoremap <Leader>ss :BLines<CR>
-nnoremap <Leader>sl :Lines<CR>
-nnoremap <Leader>bb :History<CR>
+nnoremap <silent> <Leader>ss :BLines<CR>
+nnoremap <silent> <Leader>sl :Lines<CR>
+nnoremap <silent> <Leader>bb :History<CR>
 
 " An action can be a reference to a function that processes selected lines
 function! s:build_quickfix_list(lines)
