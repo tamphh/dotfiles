@@ -1,6 +1,7 @@
 set nocompatible
 filetype off
 
+" Autoinstall vim-plug
 if empty(glob('~/.vim/autoload/plug.vim'))
   silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
         \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
@@ -54,6 +55,8 @@ Plug 'google/vim-searchindex'
 Plug 'jiangmiao/auto-pairs'
 Plug '/usr/local/opt/fzf'
 Plug 'junegunn/fzf.vim'
+Plug 'pbogut/fzf-mru.vim'
+
 if has('nvim')
   Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 else
@@ -413,20 +416,26 @@ nnoremap <leader>y "+y
 xnoremap <leader>y "+y
 noremap <leader>p "+p
 
-" fzf
-nnoremap <silent> <Leader>f :Files<CR>
+
+" FZF
+nnoremap <Leader>f :Files<CR>
 " all files
-nnoremap <silent> <Leader>pf :Files<CR>
+nnoremap <Leader>pf :Files<CR>
 " sibling files
-nnoremap <silent> <leader>ff :Files <C-r>=expand("%:h")<CR>/<CR>
-nnoremap <silent> <Leader>/ :Ag<Space>
+nnoremap <leader>ff :Files <C-R>=expand("%:h")<CR>/<CR>
+nnoremap <Leader>/ :Ag<Space>
 nnoremap g/ :Ag!<Space>
 "grep with word under cursor
-nnoremap <silent> <Leader>? :Ag <C-R><C-W><CR>
+nnoremap <Leader>? :Ag <C-R><C-W><CR>
 nnoremap g? :Ag! <C-R><C-W><CR>
-nnoremap <silent> <Leader>ss :BLines<CR>
-nnoremap <silent> <Leader>sl :Lines<CR>
-nnoremap <silent> <Leader>bb :History<CR>
+" search with Ag in current directory
+nnoremap <leader>. :AgIn <C-R>=expand("%:h")<CR>/<Space>
+nnoremap <Leader>ss :BLines<CR>
+nnoremap <Leader>sl :Lines<CR>
+nnoremap <Leader>bb :FZFMru<CR>
+
+" only list files within current directory.
+let g:fzf_mru_relative = 1
 
 " An action can be a reference to a function that processes selected lines
 function! s:build_quickfix_list(lines)
@@ -445,9 +454,14 @@ let g:fzf_action = {
 " - down / up / left / right
 let g:fzf_layout = { 'down': '~50%' }
 
+function! SearchWithAgInDirectory(...)
+  call fzf#vim#ag(join(a:000[1:], ' '), extend({'dir': a:1}, g:fzf_layout))
+endfunction
+command! -nargs=+ -complete=dir AgIn call SearchWithAgInDirectory(<f-args>)
+
 " reverse layout to top-down, scroll inside preview with c-n, c-p
 " Ref: https://github.com/junegunn/fzf/issues/1057#issuecomment-339347148
-let $FZF_DEFAULT_OPTS = '--reverse --bind ctrl-p:preview-up --bind ctrl-n:preview-down'
+let $FZF_DEFAULT_OPTS = '--reverse --no-bold --bind ctrl-p:preview-up --bind ctrl-n:preview-down'
 
 " Ref: https://github.com/phongnh/fzf-settings.vim/blob/master/plugin/fzf_settings.vim for more advanced fzf command settings
 
