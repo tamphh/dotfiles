@@ -122,6 +122,12 @@ alias tst="tig status"
 alias vim_tp="cd ~/github/tp-web; vim"
 alias vimrcedit="vim ~/.vimrc"
 
+# git aliases
+alias gopull='git pull origin "$(git_current_branch)"'
+alias gopush='git push origin "$(git_current_branch)"'
+alias gofetch='git fetch origin "$(git_current_branch)"'
+alias gcoI='git checkout $(git branch | fzf)'
+
 # rspec
 alias rspec="bundle exec rspec"
 # rake
@@ -133,7 +139,7 @@ export BAT_THEME="TwoDark"
 # fzf keybindings & autocompletion
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-alias fzfp="fzf --preview '~/bin/file_preview {}'"
+alias fpre="fzf --preview '~/bin/file_preview {}'"
 
 # ~/.ignore
 # ~/projects/.ignore
