@@ -126,7 +126,7 @@ alias vimrcedit="vim ~/.vimrc"
 alias gopull='git pull origin "$(git_current_branch)"'
 alias gopush='git push origin "$(git_current_branch)"'
 alias gofetch='git fetch origin "$(git_current_branch)"'
-alias gcoI='git checkout $(git branch | fzf)'
+alias gco-i='git checkout $(git branch | fzf --height 50% --border --ansi --tac)'
 
 # rspec
 alias rspec="bundle exec rspec"
@@ -154,6 +154,25 @@ export FZF_DEFAULT_OPTS='
   --reverse --no-bold
   --bind ctrl-p:preview-up --bind ctrl-n:preview-down
 '
+# git log show with fzf
+glog-i ()
+{
+  local gcmd
+  gcmd='git log --graph --color=always --format="%C(auto)%h%d %s %C(black)%C(bold)%cr"'
+
+  # param existed, git log for specific file
+  if [[ -n $1 ]]; then
+    gcmd='git log --color=always --oneline $1'
+  fi
+   eval "$gcmd" | \
+   fzf --ansi --no-sort --reverse --tiebreak=index --preview \
+   'f() { set -- $(echo -- "$@" | grep -o "[a-f0-9]\{7\}"); [ $# -eq 0 ] || git show --color=always $1 ; }; f {}' \
+   --bind "j:down,k:up,q:abort,ctrl-m:execute:
+                (grep -o '[a-f0-9]\{7\}' | head -1 |
+                xargs -I % sh -c 'git show --color=always % | less -R') << 'FZF-EOF'
+                {}
+                FZF-EOF" --preview-window=right:60%
+}
 
 export EDITOR='vim'
 export ANDROID_HOME=/Users/$USER/Library/Android/sdk
