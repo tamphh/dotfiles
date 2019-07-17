@@ -154,28 +154,38 @@ export FZF_DEFAULT_OPTS='
   --reverse --no-bold
   --bind ctrl-p:preview-up --bind ctrl-n:preview-down
 '
+
 # git log show with fzf
+# TODO handle case of branch name
 glog-i() {
-  # git command string
-  local gcmd
   # filter by file string
   local filter
-  gcmd="git log --graph --color=always --format='%C(auto)%h %an %C(blue)%s %C(yellow)%cr' $1"
-  filter=''
-
   # param existed, git log for specific file
-  if [[ -n $1 ]]; then
-    # gcmd='git log --color=always --oneline $1'
-    filter="-- $1"
+  if [[ -n $@ ]]; then
+    filter="-- $@"
   fi
-   eval "$gcmd" | \
-   fzf --ansi --no-sort --reverse --tiebreak=index --preview \
-   "f() { set -- \$(echo -- \$@ | grep -o '[a-f0-9]\{7\}'); [ \$# -eq 0 ] || git show --color=always \$1 $filter; }; f {}" \
-   --bind "q:abort,ctrl-m:execute:
+
+  # git command
+  local gitlog=(
+    git log
+    --graph --color=always
+    --format='%C(auto)%h %an %C(blue)%s %C(yellow)%cr'
+    $@
+  )
+
+  local fzf=(
+    fzf
+    --ansi --no-sort --reverse --tiebreak=index
+    --preview "f() { set -- \$(echo -- \$@ | grep -o '[a-f0-9]\{7\}'); [ \$# -eq 0 ] || git show --color=always \$1 $filter; }; f {}"
+    --bind "ctrl-q:abort,ctrl-m:execute:
                 (grep -o '[a-f0-9]\{7\}' | head -1 |
                 xargs -I % sh -c 'git show --color=always % $filter | less -R') << 'FZF-EOF'
                 {}
-                FZF-EOF" --preview-window=right:60%
+                FZF-EOF"
+   --preview-window=right:60%
+  )
+
+  $gitlog | $fzf
 }
 
 export EDITOR='vim'
