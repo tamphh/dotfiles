@@ -155,21 +155,25 @@ export FZF_DEFAULT_OPTS='
   --bind ctrl-p:preview-up --bind ctrl-n:preview-down
 '
 # git log show with fzf
-glog-i ()
-{
+glog-i() {
+  # git command string
   local gcmd
-  gcmd='git log --graph --color=always --format="%C(auto)%h%d %s %C(black)%C(bold)%cr"'
+  # filter by file string
+  local filter
+  gcmd="git log --graph --color=always --format='%C(auto)%h%d %an %C(blue)%s %C(yellow)%cr'"
+  filter=''
 
   # param existed, git log for specific file
   if [[ -n $1 ]]; then
-    gcmd='git log --color=always --oneline $1'
+    gcmd="git log --color=always --format='%C(auto)%h%d %an %C(blue)%s %C(yellow)%cr' $1"
+    filter="-- $1"
   fi
    eval "$gcmd" | \
    fzf --ansi --no-sort --reverse --tiebreak=index --preview \
-   'f() { set -- $(echo -- "$@" | grep -o "[a-f0-9]\{7\}"); [ $# -eq 0 ] || git show --color=always $1 ; }; f {}' \
-   --bind "j:down,k:up,q:abort,ctrl-m:execute:
+   "f() { set -- \$(echo -- \$@ | grep -o '[a-f0-9]\{7\}'); [ \$# -eq 0 ] || git show --color=always \$1 $filter; }; f {}" \
+   --bind "q:abort,ctrl-m:execute:
                 (grep -o '[a-f0-9]\{7\}' | head -1 |
-                xargs -I % sh -c 'git show --color=always % | less -R') << 'FZF-EOF'
+                xargs -I % sh -c 'git show --color=always % $filter | less -R') << 'FZF-EOF'
                 {}
                 FZF-EOF" --preview-window=right:60%
 }
