@@ -160,12 +160,12 @@ glog-i() {
   local gcmd
   # filter by file string
   local filter
-  gcmd="git log --graph --color=always --format='%C(auto)%h%d %an %C(blue)%s %C(yellow)%cr'"
+  gcmd="git log --graph --color=always --format='%C(auto)%h %an %C(blue)%s %C(yellow)%cr' $1"
   filter=''
 
   # param existed, git log for specific file
   if [[ -n $1 ]]; then
-    gcmd="git log --color=always --format='%C(auto)%h%d %an %C(blue)%s %C(yellow)%cr' $1"
+    # gcmd='git log --color=always --oneline $1'
     filter="-- $1"
   fi
    eval "$gcmd" | \
