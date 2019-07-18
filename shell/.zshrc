@@ -156,12 +156,12 @@ export FZF_DEFAULT_OPTS='
 '
 
 # git log show with fzf
-# TODO handle case of branch name
+# TODO handle git log error
 glog-i() {
   # filter by file string
   local filter
-  # param existed, git log for specific file
-  if [[ -n $@ ]]; then
+  # param existed, git log for file if existed
+  if [ -n $@ ] && [ -f $@ ]; then
     filter="-- $@"
   fi
 
