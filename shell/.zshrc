@@ -126,7 +126,7 @@ alias vimrcedit="vim ~/.vimrc"
 alias gopull='git pull origin "$(git_current_branch)"'
 alias gopush='git push origin "$(git_current_branch)"'
 alias gofetch='git fetch origin "$(git_current_branch)"'
-alias gco-i='git checkout $(git branch | fzf --height 50% --border --ansi --tac)'
+alias gcoi='git checkout $(git branch | fzf --height 50% --border --ansi --tac)'
 
 # rspec
 alias rspec="bundle exec rspec"
@@ -157,7 +157,7 @@ export FZF_DEFAULT_OPTS='
 
 # git log show with fzf
 # TODO handle git log error
-glog-i() {
+glogi() {
   # filter by file string
   local filter
   # param existed, git log for file if existed
