@@ -156,8 +156,7 @@ export FZF_DEFAULT_OPTS='
 '
 
 # git log show with fzf
-# TODO handle git log error
-glogi() {
+gli() {
   # filter by file string
   local filter
   # param existed, git log for file if existed
@@ -186,7 +185,9 @@ glogi() {
    --preview-window=right:60%
   )
 
-  $gitlog | $fzf
+  if [[ `git log -n 1 $@ | head -n 1` ]] ;then
+    $gitlog | $fzf
+  fi
 }
 
 export EDITOR='vim'
