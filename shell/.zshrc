@@ -169,6 +169,7 @@ glog-i() {
   local gitlog=(
     git log
     --graph --color=always
+    --abbrev=7
     --format='%C(auto)%h %an %C(blue)%s %C(yellow)%cr'
     $@
   )
