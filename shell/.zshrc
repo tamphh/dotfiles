@@ -157,6 +157,12 @@ export FZF_DEFAULT_OPTS='
 
 # git log show with fzf
 gli() {
+
+  # param validation
+  if [[ ! `git log -n 1 $@ | head -n 1` ]] ;then
+    return
+  fi
+
   # filter by file string
   local filter
   # param existed, git log for file if existed
@@ -173,6 +179,7 @@ gli() {
     $@
   )
 
+  # fzf command
   local fzf=(
     fzf
     --ansi --no-sort --reverse --tiebreak=index
@@ -185,9 +192,8 @@ gli() {
    --preview-window=right:60%
   )
 
-  if [[ `git log -n 1 $@ | head -n 1` ]] ;then
-    $gitlog | $fzf
-  fi
+  # piping them
+  $gitlog | $fzf
 }
 
 export EDITOR='vim'
