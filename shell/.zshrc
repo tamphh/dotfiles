@@ -134,7 +134,10 @@ alias rspec="bundle exec rspec"
 alias rake="bundle exec rake"
 
 # bat
-export BAT_THEME="TwoDark"
+# export BAT_THEME="TwoDark"
+# https://github.com/braver/Solarized/tree/1.6.0
+# https://github.com/sharkdp/bat#adding-new-themes
+export BAT_THEME="Solarized (dark)"
 
 # fzf keybindings & autocompletion
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
