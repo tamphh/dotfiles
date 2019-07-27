@@ -158,7 +158,9 @@ export FZF_DEFAULT_OPTS='
   --cycle
   --no-bold
   --no-mouse
-  --bind ctrl-p:preview-up --bind ctrl-n:preview-down
+  --bind ctrl-p:preview-up
+  --bind ctrl-n:preview-down
+  --bind ?:toggle-preview
 '
 
 # git log show with fzf
@@ -195,7 +197,7 @@ gli() {
                 xargs -I % sh -c 'git show --color=always % $filter | less -R') << 'FZF-EOF'
                 {}
                 FZF-EOF"
-   --preview-window=right:60%
+   --preview-window=right:60%:hidden
   )
 
   # piping them
