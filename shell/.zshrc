@@ -123,7 +123,7 @@ alias vim_tp="cd ~/github/tp-web; vim"
 alias vimrcedit="vim ~/.vimrc"
 
 # git aliases
-alias gopull='git pull origin "$(git_current_branch)"'
+alias gopull='git pull --rebase origin "$(git_current_branch)"'
 alias gopush='git push origin "$(git_current_branch)"'
 alias gofetch='git fetch origin "$(git_current_branch)"'
 alias gcoi='git checkout $(git branch | fzf --height 50% --border --ansi --tac)'
@@ -192,7 +192,7 @@ gli() {
     fzf
     --ansi --no-sort --reverse --tiebreak=index
     --preview "f() { set -- \$(echo -- \$@ | grep -o '[a-f0-9]\{7\}'); [ \$# -eq 0 ] || git show --color=always \$1 $filter; }; f {}"
-    --bind "ctrl-q:abort,ctrl-m:execute:
+    --bind "j:down,k:up,q:abort,ctrl-m:toggle-preview,ctrl-o:execute:
                 (grep -o '[a-f0-9]\{7\}' | head -1 |
                 xargs -I % sh -c 'git show --color=always % $filter | less -R') << 'FZF-EOF'
                 {}
