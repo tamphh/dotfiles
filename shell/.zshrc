@@ -183,7 +183,7 @@ gli() {
     git log
     --graph --color=always
     --abbrev=7
-    --format='%C(auto)%h %an %C(blue)%s %C(yellow)%cr'
+    --pretty=format:"%C(magenta)%h  %C(yellow)%cd    %C(#c0d6de)%an    %C(#99bcc9)%s%C(reset)"
     $@
   )
 
@@ -197,7 +197,7 @@ gli() {
                 xargs -I % sh -c 'git show --color=always % $filter | less -R') << 'FZF-EOF'
                 {}
                 FZF-EOF"
-   --preview-window=right:60%:hidden
+   --preview-window=down:60%:hidden
   )
 
   # piping them
