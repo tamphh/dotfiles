@@ -117,6 +117,7 @@ alias filesvim="find . -type file ! -path './.git/*' | peco | xargs -o vim"
 
 # tig aliases
 alias tst="tig status"
+alias git-reflog='git reflog --pretty=format:"%C(magenta)%h | %gd  %C(#c0d6de)%an  %C(blue)%gs %C(#99bcc9)| %s  %C(yellow)%cr%C(reset)"'
 
 # vim aliases
 alias vim_tp="cd ~/github/tp-web; vim"
