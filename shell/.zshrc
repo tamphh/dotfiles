@@ -117,7 +117,7 @@ alias filesvim="find . -type file ! -path './.git/*' | peco | xargs -o vim"
 
 # tig aliases
 alias tst="tig status"
-alias git-reflog='git reflog --pretty=format:"%C(magenta)%h | %gd  %C(#c0d6de)%an  %C(blue)%gs %C(#99bcc9)| %s  %C(yellow)%cr%C(reset)"'
+alias git-reflog='git reflog --pretty=format:" %C(magenta)%h | %gd  %C(#c0d6de)%an  %C(blue)%gs %C(#99bcc9)| %s  %C(yellow)%cr%C(reset)"'
 
 # vim aliases
 alias vim_tp="cd ~/github/tp-web; vim"
@@ -196,6 +196,32 @@ gli() {
     --bind "j:down,k:up,q:abort,ctrl-m:toggle-preview,ctrl-o:execute:
                 (grep -o '[a-f0-9]\{7\}' | head -1 |
                 xargs -I % sh -c 'git show --color=always % $filter | less -R') << 'FZF-EOF'
+                {}
+                FZF-EOF"
+   --preview-window=down:60%:hidden
+  )
+
+  # piping them
+  $gitlog | $fzf
+}
+
+# git reflog show with fzf
+grli() {
+  # git command
+  local gitlog=(
+    git reflog
+    --color=always
+    --pretty=format:"%C(magenta)%h | %gd  %C(#c0d6de)%an  %C(blue)%gs %C(#99bcc9)| %s  %C(yellow)%cr%C(reset)"
+  )
+
+  # fzf command
+  local fzf=(
+    fzf
+    --ansi --no-sort --reverse --tiebreak=index
+    --preview "f() { set -- \$(echo -- \$@ | grep -o '[a-f0-9]\{7\}'); [ \$# -eq 0 ] || git show --color=always \$1; }; f {}"
+    --bind "j:down,k:up,q:abort,ctrl-m:toggle-preview,ctrl-o:execute:
+                (grep -o '[a-f0-9]\{7\}' | head -1 |
+                xargs -I % sh -c 'git show --color=always % | less -R') << 'FZF-EOF'
                 {}
                 FZF-EOF"
    --preview-window=down:60%:hidden
