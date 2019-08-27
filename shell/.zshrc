@@ -145,6 +145,10 @@ export BAT_THEME="Solarized (dark)"
 
 alias fpre="fzf --preview '~/bin/file_preview {}'"
 
+function manpre() {
+    man -t $@ | open -f -a "Preview"
+}
+
 # ~/.ignore
 # ~/projects/.ignore
 # export FZF_DEFAULT_COMMAND='ag --nocolor --skip-vcs-ignores --hidden -l -g ""'
