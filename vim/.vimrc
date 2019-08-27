@@ -53,9 +53,12 @@ Plug 'neomake/neomake'
 " Plug 'henrik/vim-indexed-search'
 Plug 'google/vim-searchindex'
 Plug 'jiangmiao/auto-pairs'
+" fzf
 Plug '/usr/local/opt/fzf'
 Plug 'junegunn/fzf.vim'
 Plug 'pbogut/fzf-mru.vim'
+" git
+Plug 'salcode/vim-interactive-rebase-reverse'
 
 if has('nvim')
   Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
@@ -401,6 +404,9 @@ set completeopt-=longest
 " if &completeopt !~# 'noinsert\|noselect'
 "   set completeopt+=noselect
 " endif
+
+" set language syntax
+nnoremap <Leader>l :setf<Space>
 
 " auto-pairs
 let g:AutoPairsMapCh=0
