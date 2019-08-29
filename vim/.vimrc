@@ -59,6 +59,7 @@ Plug 'junegunn/fzf.vim'
 Plug 'pbogut/fzf-mru.vim'
 " git
 Plug 'salcode/vim-interactive-rebase-reverse'
+Plug 'mhinz/vim-startify'
 
 if has('nvim')
   Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
@@ -388,8 +389,9 @@ nnoremap <Leader><right> :vertical resize +4<CR>
 nnoremap <Leader><up> :resize -2<CR>
 nnoremap <Leader><down> :resize +2<CR>
 
-" refresh .vimrc
+" .vimrc
 nnoremap <Leader>vv :so ~/.vimrc<CR>
+nnoremap <Leader>ve :e ~/.vimrc<CR>
 
 " break line
 nnoremap K i<CR><ESC>
@@ -501,5 +503,23 @@ call deoplete#custom#option({
       \ 'auto_refresh_delay': 80,
       \ 'smart_case': v:true,
       \ 'refresh_always': v:true,
-      \ 'max_list': 50,
+      \ 'max_list': 30,
       \ })
+
+" Startify
+let g:startify_custom_header = [
+      \ ' ',
+      \ '        __     __  ___   __  __',
+      \ '        \ \   / / |_ _| |  \/  |',
+      \ '         \ \ / /   | |  | |\/| |',
+      \ '          \ V /    | |  | |  | |',
+      \ '           \_/    |___| |_|  |_|',
+      \ ' ',
+      \ ]
+
+" 'Most Recent Files' number
+let g:startify_files_number = 20
+" Simplify the startify list to just recent files and sessions
+let g:startify_lists = [
+  \ { 'type': 'dir',       'header': ['   Recent files'] },
+  \ ]
