@@ -438,6 +438,8 @@ nnoremap <Leader>? :Ag <C-R><C-W><CR>
 nnoremap g? :Ag! <C-R><C-W><CR>
 " search with Ag in current directory
 nnoremap <leader>. :AgIn <C-R>=expand("%:h")<CR>/<Space>
+" search with Ag raw command
+nnoremap <leader>, :AgRaw<Space>
 nnoremap <Leader>ss :BLines<CR>
 nnoremap <Leader>sl :Lines<CR>
 nnoremap <Leader>bb :FZFMru<CR>
@@ -497,6 +499,15 @@ command! -bang -nargs=* Ag
   \                         : fzf#vim#with_preview('right:50%:hidden', '?'),
   \                 <bang>0)
 
+" https://github.com/junegunn/fzf.vim/issues/92#issuecomment-230431927
+" Using this cmd to apply Ag raw command with args,...
+function! s:fzf_ag_raw(cmd)
+  " call fzf#vim#ag_raw('--noheading '. a:cmd)
+  call fzf#vim#ag_raw(a:cmd)
+endfunction
+
+autocmd! VimEnter * command! -nargs=* -complete=file AgRaw :call s:fzf_ag_raw(<q-args>)
+
 " Deoplete
 call deoplete#custom#option({
       \ 'auto_complete_delay': 200,
@@ -523,3 +534,4 @@ let g:startify_files_number = 20
 let g:startify_lists = [
   \ { 'type': 'dir',       'header': ['   Recent files'] },
   \ ]
+let g:startify_change_to_dir = 0
