@@ -414,10 +414,10 @@ nnoremap <Leader>l :setf<Space>
 let g:AutoPairsMapCh=0
 
 " vim-j
-let g:user_emmet_install_global = 0 " don't enable for all file types
-let g:user_emmet_settings = {'javascript.jsx': {'extends': 'jsx'}}
-autocmd FileType html,css,javascript.jsx,scss EmmetInstall
-let g:jsx_ext_required = 1    " Syntax highlighting and indenting only for .jsx files
+" let g:user_emmet_install_global = 0 " don't enable for all file types
+" let g:user_emmet_settings = {'javascript.jsx': {'extends': 'jsx'}}
+" autocmd FileType html,css,javascript.jsx,scss EmmetInstall
+" let g:jsx_ext_required = 1    " Syntax highlighting and indenting only for .jsx files
 
 " yan & clipboard
 nnoremap <leader>y "+y

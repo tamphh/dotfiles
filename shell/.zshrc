@@ -133,6 +133,10 @@ alias gcoi='git checkout $(git branch | fzf --height 50% --border --ansi --tac)'
 alias rspec="bundle exec rspec"
 # rake
 alias rake="bundle exec rake"
+# docker
+alias docker-login='$(aws ecr get-login --no-include-email)'
+# dotfiles
+alias dotfiles="cd ~/.dotfiles"
 
 # bat
 # export BAT_THEME="TwoDark"
@@ -256,3 +260,4 @@ export PATH="$PATH:$HOME/.rvm/bin"
 export CXXFLAGS="-mmacosx-version-min=10.9"
 
 export LDFLAGS="-mmacosx-version-min=10.9"
+
