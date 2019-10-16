@@ -38,7 +38,7 @@ Plug 'itchyny/lightline.vim'
 " Plug 'thoughtbot/vim-rspec'
 Plug 'janko-m/vim-test'
 Plug 'jebaum/vim-tmuxify'
-Plug 'phongnh/vim-rubocop'
+" Plug 'phongnh/vim-rubocop'
 Plug 'vim-ruby/vim-ruby'
 Plug 'casecommons/vim-rails'
 Plug 'pangloss/vim-javascript'
@@ -199,7 +199,7 @@ autocmd ColorScheme * highlight VertSplit cterm=NONE ctermfg=Green ctermbg=NONE
 hi NonText ctermfg=darkcyan guifg=darkcyan
 
 " rubocop
-let g:vimrubocop_config = '~/github/tp-web/.rubocop.yml'
+" let g:vimrubocop_config = '~/github/tp-web/.rubocop.yml'
 
 " rspec-cucumber.vim mappings
 " nnoremap <Leader>T :call RunCurrentSpecFile()<CR>
@@ -409,6 +409,9 @@ set completeopt-=longest
 
 " set language syntax
 nnoremap <Leader>l :setf<Space>
+
+" terminal
+nnoremap <Leader>t :terminal<CR>
 
 " auto-pairs
 let g:AutoPairsMapCh=0
