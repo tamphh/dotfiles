@@ -60,6 +60,8 @@ Plug 'pbogut/fzf-mru.vim'
 " git
 Plug 'salcode/vim-interactive-rebase-reverse'
 Plug 'mhinz/vim-startify'
+Plug 'pbrisbin/vim-mkdir' " Vim mkdir
+Plug 'MattesGroeger/vim-bookmarks'
 
 if has('nvim')
   Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
@@ -146,6 +148,15 @@ autocmd FileType nerdtree nnoremap <silent> <buffer> F :call search(g:NerdLastFi
 " search pattern exaclty
 autocmd FileType nerdtree nnoremap <silent> <buffer> f :call
   \ search('\<' .g:NerdLastFile . '\>') <bar> :echo g:NerdLastFile<CR>
+let g:NERDTreeDirArrowExpandable = '+'
+let g:NERDTreeDirArrowCollapsible = '-'
+
+" =====================================================================
+" Vim-bookmarks
+" =====================================================================
+let g:bookmark_sign = '+'
+let g:bookmark_auto_close = 1
+let g:bookmark_highlight_lines = 0
 
 " deoplete
 let g:deoplete#enable_at_startup = 1
@@ -256,7 +267,7 @@ let g:agprg='ag -S --nocolor --nogroup --column --ignore node_modules --ignore "
 "clear highlight search
 " map <Leader>h :set hlsearch!<CR>
 map <Leader>sc :noh<CR>
-nnoremap <CR> :noh<CR>
+" nnoremap <CR> :noh<CR>
 nnoremap <Esc> :noh<CR><Esc>
 
 " airline
@@ -474,7 +485,7 @@ command! -nargs=+ -complete=dir AgIn call SearchWithAgInDirectory(<f-args>)
 
 " reverse layout to top-down, scroll inside preview with c-n, c-p
 " Ref: https://github.com/junegunn/fzf/issues/1057#issuecomment-339347148
-let $FZF_DEFAULT_OPTS = '--reverse --no-bold --bind ctrl-p:preview-up --bind ctrl-n:preview-down'
+let $FZF_DEFAULT_OPTS = '--reverse --no-bold --bind ctrl-p:preview-up --bind ctrl-n:preview-down --bind ctrl-f:select-all --bind ctrl-d:deselect-all'
 
 " Ref: https://github.com/phongnh/fzf-settings.vim/blob/master/plugin/fzf_settings.vim for more advanced fzf command settings
 
