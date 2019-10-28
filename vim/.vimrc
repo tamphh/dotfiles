@@ -151,11 +151,22 @@ autocmd FileType nerdtree nnoremap <silent> <buffer> f :call
 let g:NERDTreeDirArrowExpandable = '+'
 let g:NERDTreeDirArrowCollapsible = '-'
 
+function! CloseQF()
+  if &buftype == 'quickfix'
+    execute "normal! :q\<CR>"
+  else
+    normal! q
+  endif
+endfunction
+nnoremap <silent> q :call CloseQF()<CR>
+
+" autocmd BufWinEnter quickfix nnoremap <silent> <buffer> q :q<CR>
+
 " =====================================================================
 " Vim-bookmarks
 " =====================================================================
 let g:bookmark_sign = '+'
-let g:bookmark_auto_close = 1
+let g:bookmark_auto_close = 0
 let g:bookmark_highlight_lines = 0
 
 " deoplete
@@ -266,8 +277,8 @@ let g:agprg='ag -S --nocolor --nogroup --column --ignore node_modules --ignore "
 
 "clear highlight search
 " map <Leader>h :set hlsearch!<CR>
-map <Leader>sc :noh<CR>
 " nnoremap <CR> :noh<CR>
+map <Leader>sc :noh<CR>
 nnoremap <Esc> :noh<CR><Esc>
 
 " airline
