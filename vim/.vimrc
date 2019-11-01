@@ -62,6 +62,8 @@ Plug 'salcode/vim-interactive-rebase-reverse'
 Plug 'mhinz/vim-startify'
 Plug 'pbrisbin/vim-mkdir' " Vim mkdir
 Plug 'MattesGroeger/vim-bookmarks'
+Plug 'tpope/vim-endwise'  " automatically add end keyword
+Plug 'metakirby5/codi.vim' " The interactive scratchpad for hackers.
 
 if has('nvim')
   Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
@@ -449,7 +451,6 @@ nnoremap <leader>y "+y
 xnoremap <leader>y "+y
 noremap <leader>p "+p
 
-
 " FZF
 nnoremap <Leader>f :Files<CR>
 " all files
@@ -467,7 +468,8 @@ nnoremap <leader>. :AgIn <C-R>=expand("%:h")<CR>/<Space>
 nnoremap <leader>, :AgRaw<Space>
 nnoremap <Leader>ss :BLines<CR>
 nnoremap <Leader>sl :Lines<CR>
-nnoremap <Leader>bb :FZFMru<CR>
+nnoremap <Leader>bb :Buffers<CR>
+nnoremap <Leader>br :FZFMru<CR>
 
 " only list files within current directory.
 let g:fzf_mru_relative = 1
@@ -520,7 +522,7 @@ let g:fzf_colors =
 " For Rg, ref: https://github.com/junegunn/fzf.vim#advanced-customization
 command! -bang -nargs=* Ag
   \ call fzf#vim#ag(<q-args>,
-  \                 <bang>0 ? fzf#vim#with_preview('right:50%:hidden', '?')
+  \                 <bang>0 ? fzf#vim#with_preview('down:50%:hidden', '?')
   \                         : fzf#vim#with_preview('right:50%:hidden', '?'),
   \                 <bang>0)
 
