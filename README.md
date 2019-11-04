@@ -9,7 +9,7 @@ stow
 - Run git clone https://github.com/tamphh/dotfiles.git
 - Install brew
 - Install stow: ```brew install stow```
-- Run setup.sh
+- Run ```./setup.sh``` to execute script
 - Optional: ```mv ~/dotfiles ~/.dotfiles``` if it's needed to be made hidden.
 
 # How to run .sh files
