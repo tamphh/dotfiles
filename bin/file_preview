@@ -1,0 +1,10 @@
+#!/bin/bash
+
+file="$1"
+[[ $(file --mime "$file") =~ binary ]] &&
+                 echo "$file" is a binary file ||
+                 (bat --style=numbers --color=always "$file" ||
+                  highlight -O ansi -l "$file" ||
+                  coderay "$file" ||
+                  rougify "$file" ||
+                  cat "$file") 2> /dev/null | head -500

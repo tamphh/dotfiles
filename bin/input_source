@@ -1,0 +1,8 @@
+#!/bin/bash
+
+enabled=$(defaults read ~/Library/Preferences/com.trankynam.GoTiengViet.plist | egrep -w 'IsEnabled' | sed -E 's/^.+ = \"?([^\"]+)\"?;$/\1/')
+if [[ "$enabled" == 1 ]]; then
+  echo "V.N"
+elif [[ "$enabled" == 0 ]]; then
+  echo "U.S"
+fi
