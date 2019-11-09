@@ -1,0 +1,186 @@
+#!/usr/bin/env ruby
+
+# How to use?
+# - Save this file as .git/hooks/pre-commit in your project .git folder
+# - Execute:
+#     chmod +x .git/hooks/pre-commit
+#
+# If you want to skip the hook just add the --no-verify flag:
+# git commit --no-verify
+
+# Skip checking if include needed flag
+exit 0 if ARGV.include?('--no-verify')
+
+require 'io/console'
+
+def red(text)    "\033[31m#{text}\033[0m"; end
+def green(text)  "\033[32m#{text}\033[0m"; end
+def yellow(text) "\033[33m#{text}\033[0m"; end
+def blue(text)   "\033[34m#{text}\033[0m"; end
+def bold(text)   "\033[1;34m#{text}\e[0m"; end
+
+class GitDiff
+  attr_reader :filenames
+
+  def initialize
+    @filenames = `git diff --cached --name-only --diff-filter=ACM`.split("\n")
+  end
+end
+
+class Check
+  attr_reader :diff, :exit_status, :files
+
+  def initialize(diff)
+    @diff = diff
+  end
+
+  def check
+    # puts "--- Checking #{bold self.class}"
+    if files.empty?
+      puts
+      puts"#{bold 'Diff does not contain relevant files.'} #{yellow '[SKIPPED]'}"
+      false
+    else
+      run
+    end
+  end
+
+  def files
+    @files ||= Array(diff.filenames)
+  end
+
+  def run
+    false
+  end
+  private
+
+  def select_files(extension:)
+    @files = diff.filenames.select { |filename| File.extname(filename) == ".#{extension}" }
+  end
+end
+
+class Keywords < Check
+  KEYWORDS = %w(
+    binding.pry
+    console.log
+    debugger
+  )
+
+  def run
+    # search files for keywords
+    %x(git grep -q -E "#{KEYWORDS.join('|')}" #{files.join(' ')})
+    found = false
+    if $?.exitstatus.zero?
+      puts
+      puts yellow '# Debugging keywords:'
+      puts yellow '------------------------'
+      puts
+      KEYWORDS.each do |keyword|
+        next_word = false
+        files.each do |file|
+          %x(git grep -q #{keyword} #{file})
+          if $?.exitstatus.zero?
+            puts "Oops... bad word found #{yellow keyword}:" unless next_word
+            next_word = true
+            found = true
+            line = %x(git grep -n #{keyword} #{file} | awk -F ":" '{print $2}').split.join(', ')
+            puts "\t * #{yellow file}:#{yellow line}"
+          end
+        end
+      end
+    end
+    !found
+  end
+end
+
+class ConflictMarkers < Check
+  def run
+    # search files for makers
+    pattern = '(<<<<|>>>>)+.*(\n)?'
+    found = false
+    files.each do |file|
+      result_for_file=`egrep -in "#{pattern}" #{file}`
+      if result_for_file.length != 0
+        unless found
+          puts
+          puts yellow '# Confict marker(s) found in:'
+          puts yellow '------------------------------'
+        end
+        found = true
+        puts "\t * #{yellow file}"
+      end
+    end
+    !found
+  end
+
+end
+
+class WarningFiles < Check
+  WARNING = %w(
+    schema.rb
+    Gemfile
+    Gemfile.lock
+    yarn.lock
+  )
+
+  def run
+    # search warning files
+    found = false
+    files.each do |file|
+      if WARNING.include?(File.basename(file))
+        unless found
+          puts
+          puts yellow '# Warning(s) found:'
+          puts yellow '------------------------------'
+        end
+        found = true
+        puts "\t * #{yellow file}"
+      end
+    end
+    if found
+      rs = `exec < /dev/tty
+          while true; do
+            read -p "Warning file(s) would be committed. Are you sure? (y/n) " answer
+            if [[ $answer =~ ^[Yy]$ ]] ; then
+              echo "yes"
+            else
+              echo "no"
+            fi
+            break
+          done`.strip
+
+      if rs == "yes"
+        true
+      else
+        false
+      end
+    else
+      true
+    end
+  end
+end
+
+puts blue '=============================='
+puts blue '# Running pre-commit git hook.'
+puts blue '=============================='
+
+rs = true
+diff = GitDiff.new
+[ # The order is important
+  Keywords,
+  ConflictMarkers,
+  WarningFiles
+].each do |klass|
+  rs = rs && klass.new(diff).check
+  break unless rs
+end
+
+# Decision maker
+puts
+if rs
+  puts green 'Codes committed!'
+else
+  puts red 'Git commit aborted!'
+  puts "Use 'git commit --no-verify' to skip this validation"
+  exit 1
+end

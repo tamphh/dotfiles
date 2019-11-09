@@ -1,0 +1,11 @@
+tags
+tags.temp
+gems
+*.svg
+tmp/
+*.cache
+# *.json
+tps-main.js
+*.min.*
+*min.js
+.DS_Store
