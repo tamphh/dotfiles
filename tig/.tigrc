@@ -1,6 +1,7 @@
 # Common config
 set diff-highlight = true
 set main-view-id = yes
+set vertical-split = no
 
 # See: http://www.calmar.ws/vim/256-xterm-24bit-rgb-color-chart.html
 # See: http://jonas.nitro.dk/tig/tigrc.5.html
