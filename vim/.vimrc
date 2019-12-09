@@ -57,6 +57,7 @@ Plug 'jiangmiao/auto-pairs'
 Plug '/usr/local/opt/fzf'
 Plug 'junegunn/fzf.vim'
 Plug 'pbogut/fzf-mru.vim'
+Plug 'junegunn/vim-easy-align'
 " git
 Plug 'salcode/vim-interactive-rebase-reverse'
 Plug 'mhinz/vim-startify'
@@ -126,6 +127,12 @@ let mapleader="\<SPACE>"
 " unbind/unmap defaut mappings
 map s <Nop>
 map K <Nop>
+
+" Map arrow keys for nomal mode.
+nnoremap <silent> <Esc><Up>A <Up>
+nnoremap <silent> <Esc><Down>B <Down>
+nnoremap <silent> <Esc><Right>C <Right>
+nnoremap <silent> <Esc><Left>D <Left>
 
 " =====================================================================
 " NERDTree
@@ -534,6 +541,12 @@ function! s:fzf_ag_raw(cmd)
 endfunction
 
 autocmd! VimEnter * command! -nargs=* -complete=file AgRaw :call s:fzf_ag_raw(<q-args>)
+
+" EasyAlign
+" Start interactive EasyAlign in visual mode (e.g. vipga)
+xmap ga <Plug>(EasyAlign)
+" Start interactive EasyAlign for a motion/text object (e.g. gaip)
+nmap ga <Plug>(EasyAlign)
 
 " Deoplete
 call deoplete#custom#option({
