@@ -134,6 +134,10 @@ nnoremap <silent> <Esc><Down>B <Down>
 nnoremap <silent> <Esc><Right>C <Right>
 nnoremap <silent> <Esc><Left>D <Left>
 
+" Gutentags
+let g:gutentags_ctags_executable = '/usr/local/Cellar/universal-ctags/HEAD-3671ad7/bin/ctags'
+let g:gutentags_ctags_exclude = ["*.min.js", "*.min.css", "build", "vendor", ".git", "node_modules", "*.vim/bundle/*"]
+
 " =====================================================================
 " NERDTree
 " =====================================================================
@@ -160,28 +164,23 @@ autocmd FileType nerdtree nnoremap <silent> <buffer> f :call
 let g:NERDTreeDirArrowExpandable = '+'
 let g:NERDTreeDirArrowCollapsible = '-'
 
-function! CloseQF()
-  if &buftype == 'quickfix'
-    execute "normal! :q\<CR>"
-  else
-    normal! q
-  endif
-endfunction
-nnoremap <silent> q :call CloseQF()<CR>
+" function! CloseQF()
+"   if &buftype == 'quickfix'
+"     execute "normal! :q\<CR>"
+"   else
+"     normal! q
+"   endif
+" endfunction
+" nnoremap <silent> q :call CloseQF()<CR>
 
 " autocmd BufWinEnter quickfix nnoremap <silent> <buffer> q :q<CR>
 
 " =====================================================================
 " Vim-bookmarks
 " =====================================================================
-let g:bookmark_sign = '+'
+let g:bookmark_sign = '*'
 let g:bookmark_auto_close = 0
 let g:bookmark_highlight_lines = 0
-
-" deoplete
-let g:deoplete#enable_at_startup = 1
-let g:deoplete#enable_smart_case = 1
-let g:deoplete#skip_chars = ['(', ')', ' ']
 
 " save buffer
 nnoremap <leader>fs :w<CR>
@@ -375,7 +374,7 @@ endif
 " copy current file name (relative/absolute) to system clipboard
 if has("mac") || has("gui_macvim") || has("gui_mac")
   " relative path  (src/foo.txt)
-  nnoremap <C-g> :let @*=expand("%") <bar> :let @0=expand("%") <bar> :echo "\"" . expand("%") . "\"" . " relative path copied"<CR>
+  nnoremap <C-c> :let @*=expand("%") <bar> :let @0=expand("%") <bar> :echo "\"" . expand("%") . "\"" . " relative path copied"<CR>
   nnoremap <leader>cf :let @*=expand("%") <bar> :echo "\"" . expand("%") . "\"" . " relative path copied"<CR>
   " nnoremap <leader>cf :let @*=expand("%") <bar> :echo "\"" . expand("%") . "\"" . " copied"<CR>
 
@@ -422,7 +421,7 @@ nnoremap <Leader><down> :resize +2<CR>
 
 " .vimrc
 nnoremap <Leader>vv :so ~/.vimrc<CR>
-nnoremap <Leader>ve :e ~/.vimrc<CR>
+nnoremap <Leader>ve :tabe ~/.vimrc<CR>
 
 " break line
 nnoremap K i<CR><ESC>
@@ -442,7 +441,7 @@ set completeopt-=longest
 nnoremap <Leader>l :setf<Space>
 
 " terminal
-nnoremap <Leader>t :terminal<CR>
+" nnoremap <Leader>t :terminal<CR>
 
 " auto-pairs
 let g:AutoPairsMapCh=0
@@ -464,7 +463,7 @@ nnoremap <Leader>f :Files<CR>
 nnoremap <Leader>pf :Files<CR>
 " sibling files
 nnoremap <leader>ff :Files <C-R>=expand("%:h")<CR>/<CR>
-nnoremap <Leader>/ :Ag<Space>
+nnoremap <Leader>/ :AgRaw<Space>
 nnoremap g/ :Ag!<Space>
 "grep with word under cursor
 nnoremap <Leader>? :Ag <C-R><C-W><CR>
@@ -472,7 +471,7 @@ nnoremap g? :Ag! <C-R><C-W><CR>
 " search with Ag in current directory
 nnoremap <leader>. :AgIn <C-R>=expand("%:h")<CR>/<Space>
 " search with Ag raw command
-nnoremap <leader>, :AgRaw<Space>
+nnoremap <leader>, :AgRaw --ignore-dir<Space>
 nnoremap <Leader>ss :BLines<CR>
 nnoremap <Leader>sl :Lines<CR>
 nnoremap <Leader>bb :Buffers<CR>
@@ -506,6 +505,10 @@ command! -nargs=+ -complete=dir AgIn call SearchWithAgInDirectory(<f-args>)
 " reverse layout to top-down, scroll inside preview with c-n, c-p
 " Ref: https://github.com/junegunn/fzf/issues/1057#issuecomment-339347148
 let $FZF_DEFAULT_OPTS = '--reverse --no-bold --bind ctrl-p:preview-up --bind ctrl-n:preview-down --bind ctrl-f:select-all --bind ctrl-d:deselect-all'
+
+" temporarily disable preview for FILES
+" command! -bang -nargs=? -complete=dir Files call fzf#vim#files(<q-args>, <bang>0)
+
 
 " Ref: https://github.com/phongnh/fzf-settings.vim/blob/master/plugin/fzf_settings.vim for more advanced fzf command settings
 
@@ -549,12 +552,18 @@ xmap ga <Plug>(EasyAlign)
 nmap ga <Plug>(EasyAlign)
 
 " Deoplete
+let g:deoplete#enable_at_startup = 1
+" let g:deoplete#enable_smart_case = 1
+" let g:deoplete#skip_chars = ['(', ')', ' ']
+
 call deoplete#custom#option({
       \ 'auto_complete_delay': 200,
       \ 'auto_refresh_delay': 80,
       \ 'smart_case': v:true,
       \ 'refresh_always': v:true,
       \ 'max_list': 30,
+      \ 'enable_smart_case': v:true,
+      \ 'skip_chars': ['(', ')', ' ']
       \ })
 
 " Startify
