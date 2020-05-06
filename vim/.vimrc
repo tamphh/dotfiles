@@ -538,12 +538,16 @@ command! -bang -nargs=* Ag
 
 " https://github.com/junegunn/fzf.vim/issues/92#issuecomment-230431927
 " Using this cmd to apply Ag raw command with args,...
-function! s:fzf_ag_raw(cmd)
-  " call fzf#vim#ag_raw('--noheading '. a:cmd)
-  call fzf#vim#ag_raw(a:cmd)
-endfunction
+" function! s:fzf_ag_raw(cmd)
+"   " call fzf#vim#ag_raw('--noheading '. a:cmd)
+"   call fzf#vim#ag_raw(a:cmd)
+" endfunction
 
-autocmd! VimEnter * command! -nargs=* -complete=file AgRaw :call s:fzf_ag_raw(<q-args>)
+autocmd! VimEnter * command! -nargs=* -complete=file AgRaw
+  \ :call fzf#vim#ag_raw(<q-args>,
+  \                      <bang>0 ? fzf#vim#with_preview('down:50%:hidden', '?')
+  \                              : fzf#vim#with_preview('right:50%:hidden', '?'),
+  \                      <bang>0)
 
 " EasyAlign
 " Start interactive EasyAlign in visual mode (e.g. vipga)
