@@ -218,7 +218,7 @@ call neomake#configure#automake('w')
 " call neomake#configure#automake('nrwi', 500)
 
 " You can configure Neomake to open the list automatically:
-let g:neomake_open_list = 2
+let g:neomake_open_list = 0
 
 " lifepillar/vim-solarized8
 set background=dark
@@ -458,7 +458,7 @@ xnoremap <leader>y "+y
 noremap <leader>p "+p
 
 " FZF
-nnoremap <Leader>f :Files<CR>
+nnoremap <Leader>fa :Files<CR>
 " all files
 nnoremap <Leader>pf :Files<CR>
 " sibling files
