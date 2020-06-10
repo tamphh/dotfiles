@@ -190,6 +190,7 @@ nnoremap <leader>ps :wa <bar> :echo "written all"<CR>
 nnoremap <leader>pq :qa<CR>
 " quit current buffer
 nnoremap <leader>q :q<CR>
+nnoremap gq :q<CR>
 " quit all buffers but current one
 nnoremap <leader>O :only<CR>
 nnoremap [b :bp<CR> " buffer previous
@@ -458,9 +459,9 @@ xnoremap <leader>y "+y
 noremap <leader>p "+p
 
 " FZF
-nnoremap <Leader>fa :Files<CR>
 " all files
-nnoremap <Leader>pf :Files<CR>
+nnoremap <Leader>fa :Files<CR>
+" nnoremap <Leader>pf :Files<CR>
 " sibling files
 nnoremap <leader>ff :Files <C-R>=expand("%:h")<CR>/<CR>
 nnoremap <Leader>/ :AgRaw<Space>

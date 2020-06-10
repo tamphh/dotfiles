@@ -125,7 +125,8 @@ alias vim_tp="cd ~/github/tp-web; vim"
 alias vimrcedit="vim ~/.vimrc"
 
 # git aliases
-alias gopull='git pull --rebase origin "$(git_current_branch)"'
+alias gpullrb='git pull --rebase origin "$(git_current_branch)"'
+alias gopull='git pull origin "$(git_current_branch)"'
 alias gopush='git push origin "$(git_current_branch)"'
 alias gofetch='git fetch origin "$(git_current_branch)"'
 alias gcoi='git checkout $(git branch | fzf --height 50% --border --ansi --tac)'
@@ -239,6 +240,18 @@ grli() {
 
   # piping them
   $gitlog | $fzf
+}
+
+# useful for daily stand-up
+git-standup() {
+    AUTHOR=${AUTHOR:="`git config user.name`"}
+
+    since=yesterday
+    if [[ $(date +%u) == 1 ]] ; then
+        since="2 days ago"
+    fi
+
+    git log --all --since "$since" --oneline --author="$AUTHOR"
 }
 
 export EDITOR='vim'
