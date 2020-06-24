@@ -60,10 +60,13 @@ echo "Installing cask apps..."
 brew cask install ${CASKS[@]}
 
 # Install fonts
-brew tap caskroom/fonts
+# brew tap caskroom/fonts
+brew tap homebrew/cask-fonts
 FONTS=(
     font-source-code-pro
     font-roboto
+    font-hack
+    font-iosevka
 )
 echo "Installing fonts..."
 brew cask install ${FONTS[@]}
