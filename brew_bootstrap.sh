@@ -54,7 +54,14 @@ brew install caskroom/cask/brew-cask
 CASKS=(
     iterm2
     alacritty
+    kitty
     rectangle
+    the-unarchiver
+    appcleaner
+    mark-text
+    sublime-text
+    visual-studio-code
+    notion
 )
 echo "Installing cask apps..."
 brew cask install ${CASKS[@]}
@@ -67,7 +74,10 @@ FONTS=(
     font-roboto
     font-hack
     font-iosevka
+    font-hurmit-nerd-font
 )
+# extra fonts not found by brew
+# https://pcaro.es/p/hermit
 echo "Installing fonts..."
 brew cask install ${FONTS[@]}
 
