@@ -2,9 +2,6 @@
 # eval "$(rbenv init -)"
 
 # Additional source
-export NVM_DIR="$HOME/.nvm"
-  [ -s "/usr/local/opt/nvm/nvm.sh" ] && . "/usr/local/opt/nvm/nvm.sh"  # This loads nvm
-  [ -s "/usr/local/opt/nvm/etc/bash_completion" ] && . "/usr/local/opt/nvm/etc/bash_completion"  # This loads nvm bash_completion
 
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
@@ -96,184 +93,24 @@ source $ZSH/oh-my-zsh.sh
 # Running tmnew will check for sessions attached to your current directory,
 # if any sessions are found, the session is resumed,
 #  otherwise a new session is created where the name is $(pwd).
-alias tmnew='tmux new-session -A -s `pwd`'
 
-alias mux="cd ~; tmuxinator"
+# ------------------------------------------------------------------------
 
-# font config
-export LANG=en_US.UTF-8
-export LC_CTYPE=en_US.UTF-8
+# User configuration
+export DOTFILES="$HOME/.dotfiles"
 
-# 10ms for key sequences
-KEYTIMEOUT=1
-# zsh aliases
-alias zshedit="vim ~/.zshrc"
-alias zshrefresh="source ~/.zshrc"
+# setup aliases
+source $DOTFILES/shell/zsh/aliases.zsh
 
-# peco aliases
-alias files="find . -type file ! -path './.git/*' | peco"
+# setup fzf
+source $DOTFILES/shell/zsh/fzf.zsh
 
-# vim peco aliases
-alias filesvim="find . -type file ! -path './.git/*' | peco | xargs -o vim"
+# setup git
+source $DOTFILES/shell/zsh/git.zsh
 
-# tig aliases
-alias tst="tig status"
-alias git-reflog='git reflog --pretty=format:" %C(magenta)%h | %gd  %C(#c0d6de)%an  %C(blue)%gs %C(#99bcc9)| %s  %C(yellow)%cr%C(reset)"'
+# setup PATH & DIR
+source $DOTFILES/shell/zsh/path.zsh
 
-# vim aliases
-alias vim_tp="cd ~/github/tp-web; vim"
-alias vimrcedit="vim ~/.vimrc"
+# setup misc configs
+source $DOTFILES/shell/zsh/misc.zsh
 
-# git aliases
-alias gpullrb='git pull --rebase origin "$(git_current_branch)"'
-alias gopull='git pull origin "$(git_current_branch)"'
-alias gopush='git push origin "$(git_current_branch)"'
-alias gofetch='git fetch origin "$(git_current_branch)"'
-alias gcoi='git checkout $(git branch | fzf --height 50% --border --ansi --tac)'
-alias gmi='git merge $(git branch | fzf --height 50% --border --ansi --tac)'
-
-# rspec
-alias rspec="bundle exec rspec"
-# rake
-alias rake="bundle exec rake"
-# docker
-alias docker-login='$(aws ecr get-login --no-include-email)'
-# dotfiles
-alias dotfiles="cd ~/.dotfiles"
-
-# bat
-# export BAT_THEME="TwoDark"
-# https://github.com/braver/Solarized/tree/1.6.0
-# https://github.com/sharkdp/bat#adding-new-themes
-export BAT_THEME="Solarized (dark)"
-
-# fzf keybindings & autocompletion
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
-alias fpre="fzf --preview '~/bin/file_preview {}'"
-
-function manpre() {
-    man -t $@ | open -f -a "Preview"
-}
-
-# ~/.ignore
-# ~/projects/.ignore
-# export FZF_DEFAULT_COMMAND='ag --nocolor --skip-vcs-ignores --hidden -l -g ""'
-export FZF_DEFAULT_COMMAND='ag --nocolor -l -g ""'
-
-# fzf Solarized theme
-export FZF_DEFAULT_OPTS='
-  --color=bg+:#073642,bg:#002b36,spinner:#719e07,hl:#719e07
-  --color=fg:#839496,header:#586e75,info:#cb4b16,pointer:#719e07
-  --color=marker:#719e07,fg+:#839496,prompt:#719e07,hl+:#719e07
-  --reverse
-  --cycle
-  --no-bold
-  --no-mouse
-  --bind ctrl-p:preview-up
-  --bind ctrl-n:preview-down
-  --bind ?:toggle-preview
-'
-
-# git log show with fzf
-gli() {
-
-  # param validation
-  if [[ ! `git log -n 1 $@ | head -n 1` ]] ;then
-    return
-  fi
-
-  # filter by file string
-  local filter
-  # param existed, git log for file if existed
-  if [ -n $@ ] && [ -f $@ ]; then
-    filter="-- $@"
-  fi
-
-  # git command
-  local gitlog=(
-    git log
-    --graph --color=always
-    --abbrev=7
-    --pretty=format:"%C(magenta)%h  %C(yellow)%cd    %C(#c0d6de)%an    %C(#99bcc9)%s%C(reset)"
-    $@
-  )
-
-  # fzf command
-  local fzf=(
-    fzf
-    --ansi --no-sort --reverse --tiebreak=index
-    --preview "f() { set -- \$(echo -- \$@ | grep -o '[a-f0-9]\{7\}'); [ \$# -eq 0 ] || git show --color=always \$1 $filter; }; f {}"
-    --bind "j:down,k:up,q:abort,ctrl-m:toggle-preview,ctrl-o:execute:
-                (grep -o '[a-f0-9]\{7\}' | head -1 |
-                xargs -I % sh -c 'git show --color=always % $filter | less -R') << 'FZF-EOF'
-                {}
-                FZF-EOF"
-   --preview-window=down:60%:hidden
-  )
-
-  # piping them
-  $gitlog | $fzf
-}
-
-# git reflog show with fzf
-grli() {
-  # git command
-  local gitlog=(
-    git reflog
-    --color=always
-    --pretty=format:"%C(magenta)%h | %gd  %C(#c0d6de)%an  %C(blue)%gs %C(#99bcc9)| %s  %C(yellow)%cr%C(reset)"
-  )
-
-  # fzf command
-  local fzf=(
-    fzf
-    --ansi --no-sort --reverse --tiebreak=index
-    --preview "f() { set -- \$(echo -- \$@ | grep -o '[a-f0-9]\{7\}'); [ \$# -eq 0 ] || git show --color=always \$1; }; f {}"
-    --bind "j:down,k:up,q:abort,ctrl-m:toggle-preview,ctrl-o:execute:
-                (grep -o '[a-f0-9]\{7\}' | head -1 |
-                xargs -I % sh -c 'git show --color=always % | less -R') << 'FZF-EOF'
-                {}
-                FZF-EOF"
-   --preview-window=down:60%:hidden
-  )
-
-  # piping them
-  $gitlog | $fzf
-}
-
-# useful for daily stand-up
-git-standup() {
-    AUTHOR=${AUTHOR:="`git config user.name`"}
-
-    since=yesterday
-    if [[ $(date +%u) == 1 ]] ; then
-        since="2 days ago"
-    fi
-
-    git log --all --since "$since" --oneline --author="$AUTHOR"
-}
-
-export EDITOR='vim'
-export ANDROID_HOME=/Users/$USER/Library/Android/sdk
-export PATH=${PATH}:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools
-
-export PATH=$PATH:/usr/local/sbin
-
-export TERM=xterm-256color
-
-export PATH="$HOME/.cargo/bin:$PATH"
-
-# export PATH="$(brew --prefix qt@5.5)/bin:$PATH"
-
-export GREP_COLOR='00;33'
-
-# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
-export PATH="$PATH:$HOME/.rvm/bin"
-
-# Front-end configs
-export CXXFLAGS="-mmacosx-version-min=10.9"
-
-export LDFLAGS="-mmacosx-version-min=10.9"
-
-unsetopt nomatch
