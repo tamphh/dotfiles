@@ -22,6 +22,10 @@ brew install bash
 # Install universal-ctags
 brew install --HEAD universal-ctags/universal-ctags/universal-ctags
 
+# Install lazygit
+brew tap jesseduffield/lazygit
+brew install jesseduffield/lazygit/lazygit
+
 # Needed packages
 PACKAGES=(
     git

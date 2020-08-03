@@ -246,15 +246,19 @@ nnoremap <Leader>wh :split<CR>
 nnoremap <Leader>wr <C-w>r<CR>
 nnoremap <Leader>wt :sbp<bar>wincmd p<bar>wincmd T<CR>
 
+"tabs
+nnoremap <Leader>1 :tabn 1<CR>
+nnoremap <Leader>2 :tabn 2<CR>
+nnoremap <Leader>3 :tabn 3<CR>
+nnoremap <Leader>4 :tabn 4<CR>
+nnoremap <Leader>5 :tabn 5<CR>
+nnoremap gh gT
+nnoremap gl gt
+
 nnoremap <Leader><Leader> :e#<CR>
 
 " buffers mappings
-nnoremap <Leader>b :buffers<CR>
-nnoremap <Leader>1 :b 1<CR>
-nnoremap <Leader>2 :b 2<CR>
-nnoremap <Leader>3 :b 3<CR>
-nnoremap <Leader>4 :b 4<CR>
-nnoremap <Leader>5 :b 5<CR>
+" nnoremap <Leader>b :buffers<CR>
 
 " keep selection after in/outdent
 vnoremap < <gv
