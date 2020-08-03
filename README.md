@@ -43,4 +43,4 @@ Source: https://github.com/junegunn/fzf#using-homebrew-or-linuxbrew
 $(brew --prefix)/opt/fzf/install
 ```
 # Additional configs for some Mac apps
-iTerm2 tmux copy mode: Enable clipboard access 
+iTerm2 tmux copy mode: ```Enable clipboard access```
