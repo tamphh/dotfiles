@@ -102,6 +102,9 @@ export DOTFILES="$HOME/.dotfiles"
 # setup aliases
 source $DOTFILES/shell/zsh/aliases.zsh
 
+# setup bat
+source $DOTFILES/shell/zsh/bat.zsh
+
 # setup fzf
 source $DOTFILES/shell/zsh/fzf.zsh
 
