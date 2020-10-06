@@ -40,7 +40,7 @@ PACKAGES=(
     vim
     neovim
     peco
-    ranger
+    vifm
     bat
     fzf
 )
