@@ -6,15 +6,16 @@ alias mux="cd ~; tmuxinator"
 alias zshedit="vim ~/.zshrc"
 alias zshrefresh="source ~/.zshrc"
 
-# peco aliases
+# fzf aliases
 alias files="find . -type file ! -path './.git/*' | fzf"
-
-# vim peco aliases
 alias filesvim="find . -type file ! -path './.git/*' | fzf | xargs -o vim"
 
 # tig aliases
 alias tst="tig status"
 alias git-reflog='git reflog --pretty=format:" %C(magenta)%h | %gd  %C(#c0d6de)%an  %C(blue)%gs %C(#99bcc9)| %s  %C(yellow)%cr%C(reset)"'
+
+# vifm aliases
+alias vfm="vifm"
 
 # vim aliases
 alias vim_tp="cd ~/github/tp-web; vim"
