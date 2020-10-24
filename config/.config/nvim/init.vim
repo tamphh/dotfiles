@@ -1,17 +1,11 @@
 set nocompatible
 filetype off
 
-" Autoinstall vim-plug
-if empty(glob('~/.vim/autoload/plug.vim'))
-  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
-        \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-  autocmd VimEnter * PlugInstall | source $MYVIMRC
-endif
-
 " Specify a directory for plugins
-" - For Neovim: ~/.local/share/nvim/plugged
+" - For Neovim: stdpath('data') . '/plugged'
 " - Avoid using standard Vim directory names like 'plugin'
-call plug#begin('~/.vim/plugged')
+" call plug#begin('~/.vim/plugged')
+call plug#begin(stdpath('data') . '/plugged')
 
 " Automatically install missing plugins on startup
 if !empty(filter(copy(g:plugs), '!isdirectory(v:val.dir)'))
@@ -67,13 +61,13 @@ Plug 'MattesGroeger/vim-bookmarks'
 Plug 'tpope/vim-endwise'  " automatically add end keyword
 Plug 'metakirby5/codi.vim' " The interactive scratchpad for hackers.
 
-" if has('nvim')
-"   Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-" else
-"   Plug 'Shougo/deoplete.nvim'
-"   Plug 'roxma/nvim-yarp'
-"   Plug 'roxma/vim-hug-neovim-rpc'
-" endif
+if has('nvim')
+  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+else
+  Plug 'Shougo/deoplete.nvim'
+  Plug 'roxma/nvim-yarp'
+  Plug 'roxma/vim-hug-neovim-rpc'
+endif
 
 " Initialize plugin system
 call plug#end()
@@ -122,6 +116,14 @@ set linebreak
 set showbreak=‿ " ..
 
 packadd! matchit
+
+" hide status line
+if has('nvim') && !exists('g:fzf_layout')
+  autocmd! FileType fzf
+  autocmd  FileType fzf set laststatus=0 noshowmode noruler
+    \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
+endif
+
 " Remap leader key to SPACE
 let mapleader="\<SPACE>"
 
@@ -431,8 +433,8 @@ nnoremap <Leader><up> :resize -2<CR>
 nnoremap <Leader><down> :resize +2<CR>
 
 " .vimrc
-nnoremap <Leader>vv :so ~/.vimrc<CR>
-nnoremap <Leader>ve :tabe ~/.vimrc<CR>
+nnoremap <Leader>vv :so ~/.config/nvim/init.vim<CR>
+nnoremap <Leader>ve :tabe ~/.config/nvim/init.vim<CR>
 
 " break line
 nnoremap K i<CR><ESC>
@@ -507,6 +509,7 @@ let g:fzf_action = {
 " Default fzf layout
 " - down / up / left / right
 let g:fzf_layout = { 'down': '~50%' }
+let g:fzf_preview_window = []
 
 function! SearchWithAgInDirectory(...)
   call fzf#vim#ag(join(a:000[1:], ' '), extend({'dir': a:1}, g:fzf_layout))
@@ -567,19 +570,19 @@ xmap ga <Plug>(EasyAlign)
 nmap ga <Plug>(EasyAlign)
 
 " Deoplete
-" let g:deoplete#enable_at_startup = 1
+let g:deoplete#enable_at_startup = 1
 " let g:deoplete#enable_smart_case = 1
 " let g:deoplete#skip_chars = ['(', ')', ' ']
 
-" call deoplete#custom#option({
-"       \ 'auto_complete_delay': 200,
-"       \ 'auto_refresh_delay': 80,
-"       \ 'smart_case': v:true,
-"       \ 'refresh_always': v:true,
-"       \ 'max_list': 30,
-"       \ 'enable_smart_case': v:true,
-"       \ 'skip_chars': ['(', ')', ' ']
-"       \ })
+call deoplete#custom#option({
+      \ 'auto_complete_delay': 200,
+      \ 'auto_refresh_delay': 80,
+      \ 'smart_case': v:true,
+      \ 'refresh_always': v:true,
+      \ 'max_list': 30,
+      \ 'enable_smart_case': v:true,
+      \ 'skip_chars': ['(', ')', ' ']
+      \ })
 
 " Startify
 let g:startify_custom_header = [
@@ -599,3 +602,4 @@ let g:startify_lists = [
   \ { 'type': 'dir',       'header': ['   Recent files'] },
   \ ]
 let g:startify_change_to_dir = 0
+

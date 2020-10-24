@@ -20,6 +20,7 @@ alias vfm="vifm"
 # vim aliases
 alias vim_tp="cd ~/github/tp-web; vim"
 alias vimrcedit="vim ~/.vimrc"
+alias vi='nvim'
 
 # git aliases
 alias gco='git checkout'
