@@ -20,11 +20,9 @@ endif
 
 " Make sure you use single quotes
 
-"Plug 'rking/ag.vim'
 Plug 'scrooloose/nerdtree'
 " Plug 'tpope/vim-vinegar'
 Plug 'tpope/vim-fugitive'
-"Plug 'jreybert/vimagit'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-commentary'
@@ -32,9 +30,7 @@ Plug 'tpope/vim-commentary'
 " Plug 'wincent/loupe'
 "Plug 'lifepillar/vim-solarized8'
 Plug 'tamphh/vim-solarized8'
-"Plug 'bling/vim-airline'
 Plug 'itchyny/lightline.vim'
-" Plug 'scrooloose/syntastic'
 " Plug 'thoughtbot/vim-rspec'
 Plug 'janko-m/vim-test'
 Plug 'jebaum/vim-tmuxify'
@@ -46,12 +42,10 @@ Plug 'pangloss/vim-javascript'
 Plug 'mxw/vim-jsx'
 " Plug 'maksimr/vim-jsbeautify'
 " Plug 'mgechev/vim-jsx'
-Plug 'chriseppstein/vim-haml'
 Plug 'hiukkanen/vim-hamlc'
 Plug 'tpope/vim-cucumber'
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'neomake/neomake'
-" Plug 'henrik/vim-indexed-search'
 Plug 'google/vim-searchindex'
 Plug 'jiangmiao/auto-pairs'
 " fzf
@@ -67,13 +61,12 @@ Plug 'MattesGroeger/vim-bookmarks'
 Plug 'tpope/vim-endwise'  " automatically add end keyword
 Plug 'metakirby5/codi.vim' " The interactive scratchpad for hackers.
 
-" if has('nvim')
-"   Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-" else
-"   Plug 'Shougo/deoplete.nvim'
-"   Plug 'roxma/nvim-yarp'
-"   Plug 'roxma/vim-hug-neovim-rpc'
-" endif
+" autocomplete
+" Plug 'prabirshrestha/asyncomplete.vim'
+" Plug 'prabirshrestha/asyncomplete-buffer.vim'
+" Plug 'prabirshrestha/asyncomplete-tags.vim'
+" Plug 'yami-beta/asyncomplete-omni.vim'
+Plug 'maralla/completor.vim'
 
 " Initialize plugin system
 call plug#end()
@@ -124,6 +117,11 @@ set showbreak=‿ " ..
 packadd! matchit
 " Remap leader key to SPACE
 let mapleader="\<SPACE>"
+
+" Check if a plugin is plugged in plug section or not
+function! s:IsPlugged(plugin) abort
+    return has_key(g:plugs, a:plugin)
+endfunction
 
 " unbind/unmap defaut mappings
 map s <Nop>
@@ -440,7 +438,7 @@ nnoremap K i<CR><ESC>
 " simple complete
 "set complete-=t
 set complete-=i
-set pumheight=12 						" Limit popup menu height
+set pumheight=12 " Limit popup menu height
 set completeopt-=longest
 " set completeopt+=menuone
 " set completeopt-=menu
@@ -469,117 +467,105 @@ xnoremap <leader>y "+y
 noremap <leader>p "+p
 
 " FZF
-" all files
-nnoremap <Leader>fa :Files<CR>
-" nnoremap <Leader>pf :Files<CR>
-" sibling files
-nnoremap <leader>ff :Files <C-R>=expand("%:h")<CR>/<CR>
-nnoremap <Leader>/ :AgRaw<Space>
-nnoremap g/ :Ag!<Space>
-"grep with word under cursor
-nnoremap <Leader>? :Ag <C-R><C-W><CR>
-nnoremap g? :Ag! <C-R><C-W><CR>
-" search with Ag in current directory
-nnoremap <leader>. :AgIn <C-R>=expand("%:h")<CR>/<Space>
-" search with Ag raw command
-nnoremap <leader>, :AgRaw --ignore-dir<Space>
-nnoremap <Leader>ss :BLines<CR>
-nnoremap <Leader>sl :Lines<CR>
-nnoremap <Leader>bb :Buffers<CR>
-nnoremap <Leader>br :FZFMru<CR>
+if s:IsPlugged('fzf.vim')
+  " all files
+  nnoremap <Leader>fa :Files<CR>
+  " nnoremap <Leader>pf :Files<CR>
+  " sibling files
+  nnoremap <leader>ff :Files <C-R>=expand("%:h")<CR>/<CR>
+  nnoremap <Leader>/ :AgRaw<Space>
+  nnoremap g/ :Ag!<Space>
+  "grep with word under cursor
+  nnoremap <Leader>? :Ag <C-R><C-W><CR>
+  nnoremap g? :Ag! <C-R><C-W><CR>
+  " search with Ag in current directory
+  nnoremap <leader>. :AgIn <C-R>=expand("%:h")<CR>/<Space>
+  " search with Ag raw command
+  nnoremap <leader>, :AgRaw --ignore-dir<Space>
+  nnoremap <Leader>ss :BLines<CR>
+  nnoremap <Leader>sl :Lines<CR>
+  nnoremap <Leader>bb :Buffers<CR>
+  nnoremap <Leader>br :FZFMru<CR>
+  nnoremap g[ :call fzf#vim#tags("'" . expand('<cword>'), {'options': '--exact --select-1 --exit-0 +i'})<CR>
 
-" only list files within current directory.
-let g:fzf_mru_relative = 1
+  " only list files within current directory.
+  let g:fzf_mru_relative = 1
 
-" An action can be a reference to a function that processes selected lines
-function! s:build_quickfix_list(lines)
-  call setqflist(map(copy(a:lines), '{ "filename": v:val }'))
-  copen
-  cc
-endfunction
+  " An action can be a reference to a function that processes selected lines
+  function! s:build_quickfix_list(lines)
+    call setqflist(map(copy(a:lines), '{ "filename": v:val }'))
+    copen
+    cc
+  endfunction
 
-let g:fzf_action = {
-  \ 'ctrl-q': function('s:build_quickfix_list'),
-  \ 'ctrl-t': 'tab split',
-  \ 'ctrl-h': 'split',
-  \ 'ctrl-v': 'vsplit' }
+  let g:fzf_action = {
+        \ 'ctrl-q': function('s:build_quickfix_list'),
+        \ 'ctrl-t': 'tab split',
+        \ 'ctrl-h': 'split',
+        \ 'ctrl-v': 'vsplit' }
 
-" Default fzf layout
-" - down / up / left / right
-let g:fzf_layout = { 'down': '~50%' }
+  " Default fzf layout
+  " - down / up / left / right
+  let g:fzf_layout = { 'down': '~50%' }
 
-function! SearchWithAgInDirectory(...)
-  call fzf#vim#ag(join(a:000[1:], ' '), extend({'dir': a:1}, g:fzf_layout))
-endfunction
-command! -nargs=+ -complete=dir AgIn call SearchWithAgInDirectory(<f-args>)
+  function! SearchWithAgInDirectory(...)
+    call fzf#vim#ag(join(a:000[1:], ' '), extend({'dir': a:1}, g:fzf_layout))
+  endfunction
+  command! -nargs=+ -complete=dir AgIn call SearchWithAgInDirectory(<f-args>)
 
-" reverse layout to top-down, scroll inside preview with c-n, c-p
-" Ref: https://github.com/junegunn/fzf/issues/1057#issuecomment-339347148
-let $FZF_DEFAULT_OPTS = '--reverse --no-bold --bind ctrl-p:preview-up --bind ctrl-n:preview-down --bind ctrl-f:select-all --bind ctrl-d:deselect-all'
+  " reverse layout to top-down, scroll inside preview with c-n, c-p
+  " Ref: https://github.com/junegunn/fzf/issues/1057#issuecomment-339347148
+  let $FZF_DEFAULT_OPTS = '--reverse --no-bold --bind ctrl-p:preview-up --bind ctrl-n:preview-down --bind ctrl-f:select-all --bind ctrl-d:deselect-all'
 
-" temporarily disable preview for FILES
-" command! -bang -nargs=? -complete=dir Files call fzf#vim#files(<q-args>, <bang>0)
+  " temporarily disable preview for FILES
+  " command! -bang -nargs=? -complete=dir Files call fzf#vim#files(<q-args>, <bang>0)
 
 
-" Ref: https://github.com/phongnh/fzf-settings.vim/blob/master/plugin/fzf_settings.vim for more advanced fzf command settings
+  " Ref: https://github.com/phongnh/fzf-settings.vim/blob/master/plugin/fzf_settings.vim for more advanced fzf command settings
 
-" Customize fzf colors to match your color scheme
-let g:fzf_colors =
-\ { 'fg':      ['fg', 'Normal'],
-  \ 'bg':      ['bg', 'Normal'],
-  \ 'hl':      ['fg', 'Keyword'],
-  \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
-  \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
-  \ 'hl+':     ['fg', 'Statement'],
-  \ 'info':    ['fg', 'PreProc'],
-  \ 'border':  ['fg', 'Ignore'],
-  \ 'prompt':  ['fg', 'Conditional'],
-  \ 'pointer': ['fg', 'Exception'],
-  \ 'marker':  ['fg', 'Keyword'],
-  \ 'spinner': ['fg', 'Label'],
-  \ 'header':  ['fg', 'Comment'] }
+  " Customize fzf colors to match your color scheme
+  let g:fzf_colors =
+        \ { 'fg':      ['fg', 'Normal'],
+        \ 'bg':      ['bg', 'Normal'],
+        \ 'hl':      ['fg', 'Keyword'],
+        \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+        \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+        \ 'hl+':     ['fg', 'Statement'],
+        \ 'info':    ['fg', 'PreProc'],
+        \ 'border':  ['fg', 'Ignore'],
+        \ 'prompt':  ['fg', 'Conditional'],
+        \ 'pointer': ['fg', 'Exception'],
+        \ 'marker':  ['fg', 'Keyword'],
+        \ 'spinner': ['fg', 'Label'],
+        \ 'header':  ['fg', 'Comment'] }
 
-" Augmenting Ag command using fzf#vim#with_preview function
-" For Rg, ref: https://github.com/junegunn/fzf.vim#advanced-customization
-command! -bang -nargs=* Ag
-  \ call fzf#vim#ag(<q-args>,
-  \                 <bang>0 ? fzf#vim#with_preview('down:50%:hidden', '?')
-  \                         : fzf#vim#with_preview('right:50%:hidden', '?'),
-  \                 <bang>0)
+  " Augmenting Ag command using fzf#vim#with_preview function
+  " For Rg, ref: https://github.com/junegunn/fzf.vim#advanced-customization
+  command! -bang -nargs=* Ag
+        \ call fzf#vim#ag(<q-args>,
+        \                 <bang>0 ? fzf#vim#with_preview('down:50%:hidden', '?')
+        \                         : fzf#vim#with_preview('right:50%:hidden', '?'),
+        \                 <bang>0)
 
-" https://github.com/junegunn/fzf.vim/issues/92#issuecomment-230431927
-" Using this cmd to apply Ag raw command with args,...
-" function! s:fzf_ag_raw(cmd)
-"   " call fzf#vim#ag_raw('--noheading '. a:cmd)
-"   call fzf#vim#ag_raw(a:cmd)
-" endfunction
+  " https://github.com/junegunn/fzf.vim/issues/92#issuecomment-230431927
+  " Using this cmd to apply Ag raw command with args,...
+  " function! s:fzf_ag_raw(cmd)
+  "   " call fzf#vim#ag_raw('--noheading '. a:cmd)
+  "   call fzf#vim#ag_raw(a:cmd)
+  " endfunction
 
-autocmd! VimEnter * command! -nargs=* -complete=file AgRaw
-  \ :call fzf#vim#ag_raw(<q-args>,
-  \                      <bang>0 ? fzf#vim#with_preview('down:50%:hidden', '?')
-  \                              : fzf#vim#with_preview('right:50%:hidden', '?'),
-  \                      <bang>0)
+  autocmd! VimEnter * command! -nargs=* -complete=file AgRaw
+        \ :call fzf#vim#ag_raw(<q-args>,
+        \                      <bang>0 ? fzf#vim#with_preview('down:50%:hidden', '?')
+        \                              : fzf#vim#with_preview('right:50%:hidden', '?'),
+        \                      <bang>0)
 
+endif
 " EasyAlign
 " Start interactive EasyAlign in visual mode (e.g. vipga)
 xmap ga <Plug>(EasyAlign)
 " Start interactive EasyAlign for a motion/text object (e.g. gaip)
 nmap ga <Plug>(EasyAlign)
-
-" Deoplete
-" let g:deoplete#enable_at_startup = 1
-" let g:deoplete#enable_smart_case = 1
-" let g:deoplete#skip_chars = ['(', ')', ' ']
-
-" call deoplete#custom#option({
-"       \ 'auto_complete_delay': 200,
-"       \ 'auto_refresh_delay': 80,
-"       \ 'smart_case': v:true,
-"       \ 'refresh_always': v:true,
-"       \ 'max_list': 30,
-"       \ 'enable_smart_case': v:true,
-"       \ 'skip_chars': ['(', ')', ' ']
-"       \ })
 
 " Startify
 let g:startify_custom_header = [
@@ -599,3 +585,153 @@ let g:startify_lists = [
   \ { 'type': 'dir',       'header': ['   Recent files'] },
   \ ]
 let g:startify_change_to_dir = 0
+
+if s:IsPlugged('completor.vim')
+  let g:completor_complete_options = 'menuone,noselect,preview'
+
+  " Use TAB to complete when typing words, else inserts TABs as usual.  Uses
+  " dictionary, source files, and completor to find matching words to complete.
+
+  " Note: usual completion is on <C-n> but more trouble to press all the time.
+  " Never type the same word twice and maybe learn a new spellings!
+  " Use the Linux dictionary when spelling is in doubt.
+  function! Tab_Or_Complete() abort
+    " If completor is already open the `tab` cycles through suggested completions.
+    if pumvisible()
+      return "\<C-N>"
+      " If completor is not open and we are in the middle of typing a word then
+      " `tab` opens completor menu.
+    elseif col('.')>1 && strpart( getline('.'), col('.')-2, 3 ) =~ '^[[:keyword:][:ident:]]'
+      return "\<C-R>=completor#do('complete')\<CR>"
+    else
+      " If we aren't typing a word and we press `tab` simply do the normal `tab`
+      " action.
+      return "\<Tab>"
+    endif
+  endfunction
+
+  " Use `tab` key to select completions.  Default is arrow keys.
+  inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+  inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+
+  " Use tab to trigger auto completion.  Default suggests completions as you type.
+  let g:completor_auto_trigger = 0
+  inoremap <expr> <Tab> Tab_Or_Complete()
+endif
+
+if s:IsPlugged('asyncomplete.vim')
+    " prabirshrestha/asyncomplete.vim
+    let g:asyncomplete_auto_popup  = 1
+    let g:asyncomplete_popup_delay = 50
+
+    " Show autocomplete popup manually
+    imap <C-g><C-g> <Plug>(asyncomplete_force_refresh)
+
+    " <CR>: close popup and insert newline
+    " inoremap <expr> <CR> pumvisible() ? asyncomplete#close_popup()."\<CR>" : "\<CR>"
+
+    " <Tab>: completion
+    function! s:CheckBackSpace() abort
+        let col = col('.') - 1
+        return !col || getline('.')[col - 1] =~ '\s'
+    endfunction
+
+    function! s:CleverTab() abort
+        if pumvisible()
+            return "\<C-n>"
+        endif
+
+        if s:CheckBackSpace()
+            return "\<Tab>"
+        endif
+
+        return asyncomplete#force_refresh()
+    endfunction
+
+    imap <silent> <expr> <Tab> <SID>CleverTab()
+
+    " <S-Tab>: completion back
+    inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+    " <C-y>: close popup
+    inoremap <expr> <C-y> pumvisible() ? asyncomplete#close_popup() : "\<C-y>"
+
+    " <C-e>: cancel popup
+    inoremap <expr> <C-e> pumvisible() ? asyncomplete#cancel_popup() : "\<C-e>"
+
+    function! s:SetupAsyncomplete() abort
+        " prabirshrestha/asyncomplete-buffer.vim
+        call asyncomplete#register_source(asyncomplete#sources#buffer#get_source_options({
+                    \ 'name':      'buffer',
+                    \ 'allowlist': ['*'],
+                    \ 'blocklist': ['go'],
+                    \ 'completor': function('asyncomplete#sources#buffer#completor'),
+                    \ }))
+
+        " prabirshrestha/asyncomplete-file.vim
+        if s:IsPlugged('asyncomplete-file.vim')
+          call asyncomplete#register_source(asyncomplete#sources#file#get_source_options({
+                \ 'name':      'file',
+                \ 'allowlist': ['*'],
+                \ 'priority':  10,
+                \ 'completor': function('asyncomplete#sources#file#completor'),
+                \ }))
+        endif
+
+        " prabirshrestha/asyncomplete-tags.vim
+        if s:IsPlugged('asyncomplete-tags.vim')
+          call asyncomplete#register_source(asyncomplete#sources#tags#get_source_options({
+                \ 'name': 'tags',
+                \ 'whitelist': ['ruby'],
+                \ 'blocklist': ['c', 'cpp', 'html', 'css', 'js'],
+                \ 'completor': function('asyncomplete#sources#tags#completor'),
+                \ 'config': {
+                \    'max_file_size': 50000000,
+                \  },
+                \ }))
+        endif
+
+        " yami-beta/asyncomplete-omni.vim
+        if s:IsPlugged('asyncomplete-omni.vim')
+          call asyncomplete#register_source(asyncomplete#sources#omni#get_source_options({
+                \ 'name':      'omni',
+                \ 'allowlist': ['*'],
+                \ 'blocklist': ['c', 'cpp', 'html', 'css'],
+                \ 'completor': function('asyncomplete#sources#omni#completor'),
+                \ }))
+        endif
+
+        if s:IsPlugged('asyncomplete-ultisnips.vim')
+            " prabirshrestha/asyncomplete-ultisnips.vim
+            call asyncomplete#register_source(asyncomplete#sources#ultisnips#get_source_options({
+                        \ 'name':      'ultisnips',
+                        \ 'allowlist': ['*'],
+                        \ 'completor': function('asyncomplete#sources#ultisnips#completor'),
+                        \ }))
+        endif
+
+        if s:IsPlugged('asyncomplete-neosnippet.vim')
+            " prabirshrestha/asyncomplete-neosnippet.vim
+            call asyncomplete#register_source(asyncomplete#sources#neosnippet#get_source_options({
+                        \ 'name':      'neosnippet',
+                        \ 'allowlist': ['*'],
+                        \ 'completor': function('asyncomplete#sources#neosnippet#completor'),
+                        \ }))
+        endif
+    endfunction
+
+    augroup MyAutoCmd
+        autocmd User asyncomplete_setup call s:SetupAsyncomplete()
+    augroup END
+
+    " Integrate with vim-visual-multi / vim-multiple-cursors plugin
+    function! Disable_Completion_Hook() abort
+        let b:asyncomplete_enable     = 0
+        let g:asyncomplete_auto_popup = 0
+    endfunction
+
+    function! Enable_Completion_Hook() abort
+        let b:asyncomplete_enable     = 1
+        let g:asyncomplete_auto_popup = 1
+    endfunction
+endif
