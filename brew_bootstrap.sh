@@ -35,7 +35,6 @@ PACKAGES=(
     stow
     tree
     tmux
-    reattach-to-user-namespace
     tig
     vim
     neovim
