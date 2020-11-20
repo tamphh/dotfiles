@@ -35,11 +35,10 @@ Plug 'itchyny/lightline.vim'
 Plug 'janko-m/vim-test'
 Plug 'jebaum/vim-tmuxify'
 " Plug 'phongnh/vim-rubocop'
-Plug 'vim-ruby/vim-ruby'
+" Plug 'vim-ruby/vim-ruby'
 " Plug 'casecommons/vim-rails'
 Plug 'tpope/vim-rails'
 Plug 'pangloss/vim-javascript'
-Plug 'mxw/vim-jsx'
 " Plug 'maksimr/vim-jsbeautify'
 " Plug 'mgechev/vim-jsx'
 Plug 'hiukkanen/vim-hamlc'
@@ -47,6 +46,7 @@ Plug 'tpope/vim-cucumber'
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'neomake/neomake'
 Plug 'google/vim-searchindex'
+Plug 'timakro/vim-searchant'
 Plug 'jiangmiao/auto-pairs'
 " fzf
 Plug '/usr/local/opt/fzf'
@@ -60,6 +60,7 @@ Plug 'pbrisbin/vim-mkdir' " Vim mkdir
 Plug 'MattesGroeger/vim-bookmarks'
 Plug 'tpope/vim-endwise'  " automatically add end keyword
 Plug 'metakirby5/codi.vim' " The interactive scratchpad for hackers.
+Plug 'Yggdroot/indentLine'
 
 " autocomplete
 " Plug 'prabirshrestha/asyncomplete.vim'
@@ -296,7 +297,8 @@ let g:agprg='ag -S --nocolor --nogroup --column --ignore node_modules --ignore "
 " map <Leader>h :set hlsearch!<CR>
 " nnoremap <CR> :noh<CR>
 map <Leader>sc :noh<CR>
-nnoremap <Esc> :noh<CR><Esc>
+" nnoremap <Esc> :noh<CR>
+nnoremap <Esc> :call SearchantStop()<CR>
 
 " airline
 "let g:airline#extensions#tabline#formatter = 'unique_tail'
@@ -507,6 +509,7 @@ if s:IsPlugged('fzf.vim')
   " Default fzf layout
   " - down / up / left / right
   let g:fzf_layout = { 'down': '~50%' }
+  let g:fzf_preview_window = []
 
   function! SearchWithAgInDirectory(...)
     call fzf#vim#ag(join(a:000[1:], ' '), extend({'dir': a:1}, g:fzf_layout))
@@ -586,6 +589,19 @@ let g:startify_lists = [
   \ ]
 let g:startify_change_to_dir = 0
 
+" Yggdroot/indentLine
+let g:indentLine_color_term = 9
+let g:indentLine_enabled = 1
+let g:indentLine_char_list = [' ', "⎸", ' ', "⎸"]
+
+" searchant
+" highlight SearchCurrent ctermbg=red ctermfg=black
+" highlight Search ctermbg=blue
+function SearchantStop()
+  :noh
+  :execute "normal \<Plug>SearchantStop"
+endfunction
+
 if s:IsPlugged('completor.vim')
   let g:completor_complete_options = 'menuone,noselect,preview'
 
@@ -615,7 +631,7 @@ if s:IsPlugged('completor.vim')
   inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
   " Use tab to trigger auto completion.  Default suggests completions as you type.
-  let g:completor_auto_trigger = 0
+  let g:completor_auto_trigger = 1
   inoremap <expr> <Tab> Tab_Or_Complete()
 endif
 
