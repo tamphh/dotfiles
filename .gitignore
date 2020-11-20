@@ -3,3 +3,5 @@ secret
 secrets
 credential
 credentials
+gh
+config/.config/git
