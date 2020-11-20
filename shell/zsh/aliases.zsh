@@ -23,7 +23,7 @@ alias vimrcedit="vim ~/.vimrc"
 # git aliases
 alias gco='git checkout'
 alias gst='git status'
-alias gpullrb='git pull --rebase origin "$(git_current_branch)"'
+alias gopullrb='git pull --rebase origin "$(git_current_branch)"'
 alias gopull='git pull origin "$(git_current_branch)"'
 alias gopush='git push origin "$(git_current_branch)"'
 alias gofetch='git fetch origin "$(git_current_branch)"'

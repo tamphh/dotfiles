@@ -116,4 +116,3 @@ source $DOTFILES/shell/zsh/path.zsh
 
 # setup misc configs
 source $DOTFILES/shell/zsh/misc.zsh
-

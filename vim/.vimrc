@@ -265,6 +265,11 @@ nnoremap <Leader><Leader> :e#<CR>
 vnoremap < <gv
 vnoremap > >gv
 
+" select all
+nnoremap <Leader>sf ggVG<CR>
+" select all & format
+nnoremap <Leader>s= ggVG=<CR>
+
 " easy split navigation
 nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
