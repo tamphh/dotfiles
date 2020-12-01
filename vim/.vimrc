@@ -596,7 +596,8 @@ let g:indentLine_char_list = [' ', "⎸", ' ', "⎸"]
 
 " searchant
 " highlight SearchCurrent ctermbg=red ctermfg=black
-" highlight Search ctermbg=blue
+highlight SearchCurrent ctermbg=red ctermfg=0 guibg=#c24914 guifg=#000000
+
 function SearchantStop()
   :noh
   :execute "normal \<Plug>SearchantStop"

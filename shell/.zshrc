@@ -114,5 +114,8 @@ source $DOTFILES/shell/zsh/git.zsh
 # setup PATH & DIR
 source $DOTFILES/shell/zsh/path.zsh
 
+# setup cointop
+source $DOTFILES/shell/zsh/cointop.zsh
+
 # setup misc configs
 source $DOTFILES/shell/zsh/misc.zsh
