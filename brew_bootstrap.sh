@@ -30,6 +30,7 @@ brew install jesseduffield/lazygit/lazygit
 PACKAGES=(
     git
     ag
+    ripgrep
     python
     python3
     stow

@@ -10,7 +10,8 @@ function manpre() {
 # ~/.ignore
 # ~/projects/.ignore
 # export FZF_DEFAULT_COMMAND='ag --nocolor --skip-vcs-ignores --hidden -l -g ""'
-export FZF_DEFAULT_COMMAND='ag --nocolor -l -g ""'
+# export FZF_DEFAULT_COMMAND='ag --nocolor -l -g ""'
+export FZF_DEFAULT_COMMAND="rg --files --hidden --follow --glob '!.git'"
 
 # fzf Solarized theme
 export FZF_DEFAULT_OPTS='
@@ -21,7 +22,10 @@ export FZF_DEFAULT_OPTS='
   --cycle
   --no-bold
   --no-mouse
+  --preview-window=:hidden
   --bind ctrl-p:preview-up
   --bind ctrl-n:preview-down
   --bind ?:toggle-preview
+  --bind ctrl-f:select-all
+  --bind ctrl-d:deselect-all
 '

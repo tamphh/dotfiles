@@ -28,7 +28,7 @@ Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-commentary'
 " Plug 'wincent/scalpel'
 " Plug 'wincent/loupe'
-"Plug 'lifepillar/vim-solarized8'
+" Plug 'lifepillar/vim-solarized8'
 Plug 'tamphh/vim-solarized8'
 Plug 'itchyny/lightline.vim'
 " Plug 'thoughtbot/vim-rspec'
@@ -135,25 +135,6 @@ hi VertSplit ctermbg=NONE guibg=NONE ctermfg=Green guifg=#839289
 autocmd ColorScheme * highlight VertSplit cterm=NONE ctermfg=Green ctermbg=NONE
 hi NonText ctermfg=darkcyan guifg=darkcyan
 
-" any-jump
-let g:any_jump_search_prefered_engine = 'rg'
-let g:any_jump_ignored_files = ['*.tmp', '*.temp', '.js', '.yml']
-" Or override all default colors
-let g:any_jump_colors = {
-      \"plain_text":         "Comment",
-      \"preview":            "Comment",
-      \"preview_keyword":    "Operator",
-      \"heading_text":       "Function",
-      \"heading_keyword":    "Identifier",
-      \"group_text":         "Comment",
-      \"group_name":         "Function",
-      \"more_button":        "Operator",
-      \"more_explain":       "Comment",
-      \"result_line_number": "Comment",
-      \"result_text":        "Statement",
-      \"result_path":        "String",
-      \"help":               "Comment"
-      \}
 " Remap leader key to SPACE
 let mapleader="\<SPACE>"
 
@@ -311,12 +292,6 @@ imap <C-j> <Down>
 imap <C-k> <Up>
 imap <C-l> <Right>
 
-" easy Ag
-"nnoremap <leader>a :Ag ""<Left>
-"nnoremap gA :Ag! <cword><CR>
-set wildignore+=*.o,*.obj,.git,.pdf,tmp/,node_modules/
-let g:agprg='ag -S --nocolor --nogroup --column --ignore node_modules --ignore "*.min.js"'
-
 " code folding
 "set foldmethod=syntax
 
@@ -375,17 +350,6 @@ let g:lightline.tabline = {
 set guioptions-=e  " Don't use GUI tabline
 set laststatus=2
 set noshowmode
-
-" rking/ag.vim
-"let g:ag_prg='ag --vimgrep -S --path-to-ignore ~/.ignore'
-
-" themes style
-" Enable true color 启用终端24位色
-if exists('+termguicolors')
-  let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
-  let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
-  set termguicolors
-endif
 
 " Changing cursor shape per mode
 " 1 or 0 -> blinking block
@@ -498,6 +462,26 @@ nnoremap <leader>y "+y
 xnoremap <leader>y "+y
 noremap <leader>p "+p
 
+" any-jump
+let g:any_jump_search_prefered_engine = 'rg'
+let g:any_jump_ignored_files = ['*.tmp', '*.temp', '.js', '.yml']
+" Or override all default colors
+let g:any_jump_colors = {
+      \"plain_text":         "Comment",
+      \"preview":            "Comment",
+      \"preview_keyword":    "Operator",
+      \"heading_text":       "Function",
+      \"heading_keyword":    "Identifier",
+      \"group_text":         "Comment",
+      \"group_name":         "Function",
+      \"more_button":        "Operator",
+      \"more_explain":       "Comment",
+      \"result_line_number": "Comment",
+      \"result_text":        "Statement",
+      \"result_path":        "String",
+      \"help":               "Comment"
+      \}
+
 " FZF
 if s:IsPlugged('fzf.vim')
   " all files
@@ -505,18 +489,19 @@ if s:IsPlugged('fzf.vim')
   " nnoremap <Leader>pf :Files<CR>
   " sibling files
   nnoremap <leader>ff :Files <C-R>=expand("%:h")<CR>/<CR>
-  nnoremap <Leader>/ :AgRaw<Space>
-  nnoremap g/ :Ag!<Space>
+  nnoremap <Leader>/ :RgRaw<Space>
+  nnoremap g/ :Rg!<Space>
   "grep with word under cursor
-  nnoremap <Leader>? :Ag <C-R><C-W><CR>
-  nnoremap g? :Ag! <C-R><C-W><CR>
-  " search with Ag in current directory
-  nnoremap <leader>. :AgIn <C-R>=expand("%:h")<CR>/<Space>
-  " search with Ag raw command
-  nnoremap <leader>, :AgRaw --ignore-dir<Space>
+  nnoremap <Leader>? :RgRaw <C-R><C-W><CR>
+  nnoremap g? :Rg! <C-R><C-W><CR>
+  " search within current directory
+  " nnoremap <leader>. :AgIn <C-R>=expand("%:h")<CR>/<Space>
+  " search with Rg raw command
+  nnoremap <leader>, :RgRaw --ignore-dir<Space>
   nnoremap <Leader>ss :BLines<CR>
   nnoremap <Leader>sl :Lines<CR>
   nnoremap <Leader>bb :Buffers<CR>
+  nnoremap <Leader>ww :Windows<CR>
   nnoremap <Leader>br :FZFMru<CR>
   nnoremap g[ :call fzf#vim#tags("'" . expand('<cword>'), {'options': '--exact --select-1 --exit-0 +i'})<CR>
 
@@ -539,16 +524,10 @@ if s:IsPlugged('fzf.vim')
   " Default fzf layout
   " - down / up / left / right
   let g:fzf_layout = { 'down': '~50%' }
-  let g:fzf_preview_window = []
-
-  function! SearchWithAgInDirectory(...)
-    call fzf#vim#ag(join(a:000[1:], ' '), extend({'dir': a:1}, g:fzf_layout))
-  endfunction
-  command! -nargs=+ -complete=dir AgIn call SearchWithAgInDirectory(<f-args>)
 
   " reverse layout to top-down, scroll inside preview with c-n, c-p
   " Ref: https://github.com/junegunn/fzf/issues/1057#issuecomment-339347148
-  let $FZF_DEFAULT_OPTS = '--reverse --no-bold --bind ctrl-p:preview-up --bind ctrl-n:preview-down --bind ctrl-f:select-all --bind ctrl-d:deselect-all'
+  " let $FZF_DEFAULT_OPTS = '--reverse --no-bold --bind ctrl-p:preview-up --bind ctrl-n:preview-down --bind ctrl-f:select-all --bind ctrl-d:deselect-all'
 
   " temporarily disable preview for FILES
   " command! -bang -nargs=? -complete=dir Files call fzf#vim#files(<q-args>, <bang>0)
@@ -572,27 +551,31 @@ if s:IsPlugged('fzf.vim')
         \ 'spinner': ['fg', 'Label'],
         \ 'header':  ['fg', 'Comment'] }
 
-  " Augmenting Ag command using fzf#vim#with_preview function
-  " For Rg, ref: https://github.com/junegunn/fzf.vim#advanced-customization
-  command! -bang -nargs=* Ag
-        \ call fzf#vim#ag(<q-args>,
-        \                 <bang>0 ? fzf#vim#with_preview('down:50%:hidden', '?')
-        \                         : fzf#vim#with_preview('right:50%:hidden', '?'),
-        \                 <bang>0)
+  function! RG_raw(command_suffix, ...)
+    if !executable('rg')
+      return s:warn('rg is not found')
+    endif
+    " ag-like
+    " rg --colors 'match:bg:yellow' --colors 'match:fg:black' --colors 'match:style:nobold' --colors 'path:fg:green' --colors 'path:style:bold' --colors 'line:fg:yellow' --colors 'line:style:bold'
 
-  " https://github.com/junegunn/fzf.vim/issues/92#issuecomment-230431927
-  " Using this cmd to apply Ag raw command with args,...
-  " function! s:fzf_ag_raw(cmd)
-  "   " call fzf#vim#ag_raw('--noheading '. a:cmd)
-  "   call fzf#vim#ag_raw(a:cmd)
-  " endfunction
+    return call('fzf#vim#grep',
+      \ extend(
+        \ [
+          \ 'rg --colors "path:fg:green"
+          \ --color=always
+          \ --follow --line-number --hidden --ignore-case --no-heading
+          \ '.a:command_suffix, 1
+        \ ]
+        \, a:000))
+  endfunction
 
-  autocmd! VimEnter * command! -nargs=* -complete=file AgRaw
-        \ :call fzf#vim#ag_raw(<q-args>,
+  " https://github.com/junegunn/fzf.vim/pull/454
+
+  command! -bang -nargs=* -complete=file RgRaw
+        \ :call RG_raw(<q-args>,
         \                      <bang>0 ? fzf#vim#with_preview('down:50%:hidden', '?')
         \                              : fzf#vim#with_preview('right:50%:hidden', '?'),
         \                      <bang>0)
-
 endif
 " EasyAlign
 " Start interactive EasyAlign in visual mode (e.g. vipga)
@@ -782,3 +765,5 @@ if s:IsPlugged('asyncomplete.vim')
         let g:asyncomplete_auto_popup = 1
     endfunction
 endif
+
+
