@@ -69,6 +69,8 @@ Plug 'Yggdroot/indentLine'
 " Plug 'yami-beta/asyncomplete-omni.vim'
 Plug 'maralla/completor.vim'
 
+Plug 'pechorin/any-jump.vim'
+
 " Initialize plugin system
 call plug#end()
 
@@ -116,6 +118,42 @@ set linebreak
 set showbreak=‿ " ..
 
 packadd! matchit
+
+" themes style
+" Enable true color 启用终端24位色
+if exists('+termguicolors')
+  let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+  let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+  set termguicolors
+endif
+
+" lifepillar/vim-solarized8
+set background=dark
+colorscheme solarized8
+set fillchars=vert:│
+hi VertSplit ctermbg=NONE guibg=NONE ctermfg=Green guifg=#839289
+autocmd ColorScheme * highlight VertSplit cterm=NONE ctermfg=Green ctermbg=NONE
+hi NonText ctermfg=darkcyan guifg=darkcyan
+
+" any-jump
+let g:any_jump_search_prefered_engine = 'rg'
+let g:any_jump_ignored_files = ['*.tmp', '*.temp', '.js', '.yml']
+" Or override all default colors
+let g:any_jump_colors = {
+      \"plain_text":         "Comment",
+      \"preview":            "Comment",
+      \"preview_keyword":    "Operator",
+      \"heading_text":       "Function",
+      \"heading_keyword":    "Identifier",
+      \"group_text":         "Comment",
+      \"group_name":         "Function",
+      \"more_button":        "Operator",
+      \"more_explain":       "Comment",
+      \"result_line_number": "Comment",
+      \"result_text":        "Statement",
+      \"result_path":        "String",
+      \"help":               "Comment"
+      \}
 " Remap leader key to SPACE
 let mapleader="\<SPACE>"
 
@@ -220,14 +258,6 @@ call neomake#configure#automake('w')
 
 " You can configure Neomake to open the list automatically:
 let g:neomake_open_list = 0
-
-" lifepillar/vim-solarized8
-set background=dark
-colorscheme solarized8
-set fillchars=vert:│
-hi VertSplit ctermbg=NONE guibg=NONE ctermfg=Green guifg=#839289
-autocmd ColorScheme * highlight VertSplit cterm=NONE ctermfg=Green ctermbg=NONE
-hi NonText ctermfg=darkcyan guifg=darkcyan
 
 " rubocop
 " let g:vimrubocop_config = '~/github/tp-web/.rubocop.yml'
