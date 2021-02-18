@@ -42,5 +42,20 @@ Source: https://github.com/junegunn/fzf#using-homebrew-or-linuxbrew
 # To install useful key bindings and fuzzy completion:
 $(brew --prefix)/opt/fzf/install
 ```
+
+### git ```diff-highlight``` on Ubuntu
+source: [Pass the path to git diff-highlight on Ubuntu 18.04 (link)](https://qiita.com/SakaiYuki/items/2814d417d0bec59046bb)
+
+**Link ```diff-highlight```**
+```sh
+sudo chmod +x /usr/share/doc/git/contrib/diff-highlight/diff-highlight
+sudo ln -s /usr/share/doc/git/contrib/diff-highlight/diff-highlight /usr/local/bin/diff-highlight
+```
+**If you upgrade git after Link**
+
+Add only execute permission again
+```sh
+sudo chmod +x /usr/share/doc/git/contrib/diff-highlight/diff-highlight
+```
 # Additional configs for some Mac apps
 iTerm2 tmux copy mode: ```Enable clipboard access```
