@@ -97,7 +97,7 @@ source $ZSH/oh-my-zsh.sh
 # ------------------------------------------------------------------------
 
 # User configuration
-export DOTFILES="$HOME/.dotfiles"
+export DOTFILES="$HOME/dotfiles"
 
 # setup aliases
 source $DOTFILES/shell/zsh/aliases.zsh
