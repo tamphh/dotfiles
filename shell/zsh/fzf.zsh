@@ -11,7 +11,8 @@ function manpre() {
 # ~/projects/.ignore
 # export FZF_DEFAULT_COMMAND='ag --nocolor --skip-vcs-ignores --hidden -l -g ""'
 # export FZF_DEFAULT_COMMAND='ag --nocolor -l -g ""'
-export FZF_DEFAULT_COMMAND="rg --files --hidden --follow --glob '!.git'"
+export FZF_DEFAULT_COMMAND='rg --files --follow -g "!.git/*" -g "!node_modules" -g "!tmp/*" -g "!**/*.min.js" -g "!**/*.min.css"'
+
 
 # fzf Solarized theme
 export FZF_DEFAULT_OPTS='

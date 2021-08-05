@@ -46,7 +46,8 @@ Plug 'tpope/vim-cucumber'
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'neomake/neomake'
 Plug 'google/vim-searchindex'
-Plug 'timakro/vim-searchant'
+" Plug 'https://github.com/adamheins/vim-highlight-match-under-cursor'
+" Plug 'timakro/vim-searchant'
 Plug 'jiangmiao/auto-pairs'
 " fzf
 Plug '/usr/local/opt/fzf'
@@ -70,6 +71,7 @@ Plug 'Yggdroot/indentLine'
 Plug 'maralla/completor.vim'
 
 Plug 'pechorin/any-jump.vim'
+Plug 'dyng/ctrlsf.vim'
 
 " Initialize plugin system
 call plug#end()
@@ -94,7 +96,7 @@ set backspace=2 " make backspace work like most other programs
 "set laststatus=2                   " always show status bar
 "set scrolloff=2                    " minimum lines above/below cursor
 "set ttimeoutlen=100                " decrease timeout for faster insert with 'O'
-set autoread                       " auto reload file
+" set autoread                       " auto reload file
 set hlsearch                       " highlight all search matches
 "set hls
 "set cursorline                     " highlight current line
@@ -302,8 +304,8 @@ imap <C-l> <Right>
 " map <Leader>h :set hlsearch!<CR>
 " nnoremap <CR> :noh<CR>
 map <Leader>sc :noh<CR>
-" nnoremap <Esc> :noh<CR>
-nnoremap <Esc> :call SearchantStop()<CR>
+nnoremap <Esc> :noh<CR>
+" nnoremap <Esc> :call SearchantStop()<CR>
 
 " airline
 "let g:airline#extensions#tabline#formatter = 'unique_tail'
@@ -464,7 +466,9 @@ noremap <leader>p "+p
 
 " any-jump
 let g:any_jump_search_prefered_engine = 'rg'
-let g:any_jump_ignored_files = ['*.tmp', '*.temp', '.js', '.yml']
+let g:any_jump_ignored_files = ['*.tmp', '*.temp', '.js', '.yml', '/spec']
+let g:any_jump_window_height_ratio = 0.8
+let g:any_jump_window_width_ratio = 0.8
 " Or override all default colors
 let g:any_jump_colors = {
       \"plain_text":         "Comment",
@@ -497,7 +501,7 @@ if s:IsPlugged('fzf.vim')
   " search within current directory
   " nnoremap <leader>. :AgIn <C-R>=expand("%:h")<CR>/<Space>
   " search with Rg raw command
-  nnoremap <leader>, :RgRaw --ignore-dir<Space>
+  nnoremap <leader>. :RgRaw -g "!
   nnoremap <Leader>ss :BLines<CR>
   nnoremap <Leader>sl :Lines<CR>
   nnoremap <Leader>bb :Buffers<CR>
@@ -528,6 +532,7 @@ if s:IsPlugged('fzf.vim')
   " reverse layout to top-down, scroll inside preview with c-n, c-p
   " Ref: https://github.com/junegunn/fzf/issues/1057#issuecomment-339347148
   " let $FZF_DEFAULT_OPTS = '--reverse --no-bold --bind ctrl-p:preview-up --bind ctrl-n:preview-down --bind ctrl-f:select-all --bind ctrl-d:deselect-all'
+  let $FZF_DEFAULT_COMMAND='rg --files --hidden --follow -g "!.git/*" -g "!node_modules" -g "!tmp/*" -g "!**/*.min.js" -g "!**/*.min.css"'
 
   " temporarily disable preview for FILES
   " command! -bang -nargs=? -complete=dir Files call fzf#vim#files(<q-args>, <bang>0)
@@ -561,7 +566,7 @@ if s:IsPlugged('fzf.vim')
     return call('fzf#vim#grep',
       \ extend(
         \ [
-          \ 'rg --colors "path:fg:green"
+          \ 'rg --colors "path:fg:green" --colors "match:fg:yellow"
           \ --color=always
           \ --follow --line-number --hidden --ignore-case --no-heading
           \ '.a:command_suffix, 1
@@ -609,12 +614,15 @@ let g:indentLine_char_list = [' ', "⎸", ' ', "⎸"]
 
 " searchant
 " highlight SearchCurrent ctermbg=red ctermfg=black
-highlight SearchCurrent ctermbg=red ctermfg=0 guibg=#c24914 guifg=#000000
 
-function SearchantStop()
-  :noh
-  :execute "normal \<Plug>SearchantStop"
-endfunction
+if s:IsPlugged('searchant.vim')
+  highlight SearchCurrent ctermbg=red ctermfg=0 guibg=#c24914 guifg=#000000
+
+  function SearchantStop()
+    :noh
+    :execute "normal \<Plug>SearchantStop"
+  endfunction
+endif
 
 if s:IsPlugged('completor.vim')
   let g:completor_complete_options = 'menuone,noselect,preview'
@@ -764,6 +772,11 @@ if s:IsPlugged('asyncomplete.vim')
         let b:asyncomplete_enable     = 1
         let g:asyncomplete_auto_popup = 1
     endfunction
+endif
+
+if s:IsPlugged('ctrlsf.vim')
+  nnoremap <C-F>f :CtrlSF<Space>
+  nnoremap <C-F>o :CtrlSFOpen<CR>
 endif
 
 
