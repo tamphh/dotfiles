@@ -779,4 +779,16 @@ if s:IsPlugged('ctrlsf.vim')
   nnoremap <C-F>o :CtrlSFOpen<CR>
 endif
 
+" https://stackoverflow.com/questions/36731853/how-to-change-the-color-of-operators-and-methods-in-vim
+function! EnhanceSyntax()
+  syntax match _Operator "[&|!\/~.*%&^?(){}]"
 
+  syntax match _Paren "?=(" contains=cParen,cCppParen
+  syntax match _memberFunc "\s*\w\+\s*(\@=" contains=_Operator,_Paren
+
+  hi def link _Operator PreProc
+  hi def link _Paren PreProc
+  hi def link _memberFunc PreProc
+endfunction
+
+autocmd Syntax python call EnhanceSyntax()
