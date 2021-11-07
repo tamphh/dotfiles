@@ -8,11 +8,12 @@ stow
 - Install brew
 - Install zsh
 - Install git
-- Cd to dotfiles folder. For example: ```cd ~/dotfiles```
 - Run git clone https://github.com/tamphh/dotfiles.git
+- Cd to dotfiles folder. For example: ```cd ~/dotfiles```
 - Install stow: ```brew install stow```
 - Run ```./setup.sh``` to execute script
 - Optional: ```mv ~/dotfiles ~/.dotfiles``` if it's needed to be made hidden.
+- Run ```brew_bootstrap.sh``` to install brew packages
 
 # How to run .sh files
 - Navigate to the directory of the file. 
