@@ -5,9 +5,11 @@ This is the git repository for my dotfiles.
 stow
 
 # Quick start
+- Install brew
+- Install zsh
+- Install git
 - Cd to dotfiles folder. For example: ```cd ~/dotfiles```
 - Run git clone https://github.com/tamphh/dotfiles.git
-- Install brew
 - Install stow: ```brew install stow```
 - Run ```./setup.sh``` to execute script
 - Optional: ```mv ~/dotfiles ~/.dotfiles``` if it's needed to be made hidden.
