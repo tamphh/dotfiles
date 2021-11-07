@@ -36,6 +36,7 @@ PACKAGES=(
     stow
     tree
     tmux
+    tmuxinator
     tig
     vim
     neovim
