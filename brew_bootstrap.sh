@@ -55,7 +55,6 @@ echo "Cleaning up..."
 brew cleanup
 
 # Install casks
-brew install caskroom/cask/brew-cask
 CASKS=(
     iterm2
     alacritty
@@ -69,7 +68,7 @@ CASKS=(
     notion
 )
 echo "Installing cask apps..."
-brew cask install ${CASKS[@]}
+brew install --cask ${CASKS[@]}
 
 # Install fonts
 # brew tap caskroom/fonts
@@ -84,6 +83,6 @@ FONTS=(
 # extra fonts not found by brew
 # https://pcaro.es/p/hermit
 echo "Installing fonts..."
-brew cask install ${FONTS[@]}
+brew install --cask ${FONTS[@]}
 
 echo "Done"
