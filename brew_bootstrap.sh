@@ -74,7 +74,6 @@ brew install --cask ${CASKS[@]}
 # brew tap caskroom/fonts
 brew tap homebrew/cask-fonts
 FONTS=(
-    font-source-code-pro
     font-roboto
     font-hack
     font-iosevka

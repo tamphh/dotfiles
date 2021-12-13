@@ -156,7 +156,7 @@ nnoremap <silent> <Esc><Right>C <Right>
 nnoremap <silent> <Esc><Left>D <Left>
 
 " Gutentags
-let g:gutentags_ctags_executable = '/usr/local/Cellar/universal-ctags/HEAD-3671ad7/bin/ctags'
+" let g:gutentags_ctags_executable = '/usr/local/Cellar/universal-ctags/HEAD-3671ad7/bin/ctags'
 let g:gutentags_ctags_exclude = ["*.min.js", "*.min.css", "build", "vendor", ".git", "node_modules", "*.vim/bundle/*"]
 
 " =====================================================================
@@ -581,6 +581,10 @@ if s:IsPlugged('fzf.vim')
         \                      <bang>0 ? fzf#vim#with_preview('down:50%:hidden', '?')
         \                              : fzf#vim#with_preview('right:50%:hidden', '?'),
         \                      <bang>0)
+
+  autocmd! FileType fzf set laststatus=0 noshowmode noruler
+  \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
+
 endif
 " EasyAlign
 " Start interactive EasyAlign in visual mode (e.g. vipga)
