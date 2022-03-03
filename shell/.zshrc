@@ -119,3 +119,9 @@ source $DOTFILES/shell/zsh/cointop.zsh
 
 # setup misc configs
 source $DOTFILES/shell/zsh/misc.zsh
+
+# setup chruby
+source $DOTFILES/shell/zsh/chruby.zsh
+
+# github
+source $DOTFILES/shell/zsh/github.zsh
