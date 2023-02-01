@@ -360,15 +360,25 @@ set noshowmode
 " 4 -> solid underscore
 " 5 -> blink vertical line
 " 6 -> steady vertical line
+" if exists('$TMUX')
+"     " tmux will only forward escape sequences to the terminal if surrounded by a DCS sequence
+"     let &t_SI .= "\<Esc>Ptmux;\<Esc>\<Esc>[6 q\<Esc>\\"
+"     let &t_EI .= "\<Esc>Ptmux;\<Esc>\<Esc>[2 q\<Esc>\\"
+"     autocmd VimLeave * silent !echo -ne "\033Ptmux;\033\033[0 q\033\\"
+" else
+"     let &t_SI .= "\<Esc>[6 q"
+"     let &t_EI .= "\<Esc>[2 q"
+"     autocmd VimLeave * silent !echo -ne "\033[0 q"
+" endif
+
 if exists('$TMUX')
-    " tmux will only forward escape sequences to the terminal if surrounded by a DCS sequence
-    let &t_SI .= "\<Esc>Ptmux;\<Esc>\<Esc>[6 q\<Esc>\\"
-    let &t_EI .= "\<Esc>Ptmux;\<Esc>\<Esc>[2 q\<Esc>\\"
-    autocmd VimLeave * silent !echo -ne "\033Ptmux;\033\033[0 q\033\\"
+  let &t_SI = "\ePtmux;\e\e[5 q\e\\"
+  let &t_EI = "\ePtmux;\e\e[2 q\e\\"
+  autocmd VimLeave * silent !echo -ne "\033Ptmux;\033\033[0 q\033\\"
 else
-    let &t_SI .= "\<Esc>[6 q"
-    let &t_EI .= "\<Esc>[2 q"
-    autocmd VimLeave * silent !echo -ne "\033[0 q"
+  let &t_SI = "\e[5 q"
+  let &t_EI = "\e[2 q"
+  autocmd VimLeave * silent !echo -ne "\033[0 q"
 endif
 
 " cursor line
