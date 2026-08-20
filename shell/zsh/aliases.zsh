@@ -40,4 +40,4 @@ alias rake="bundle exec rake"
 # docker
 alias docker-login='$(aws ecr get-login --no-include-email)'
 # dotfiles
-alias dotfiles="cd ~/.dotfiles"
+alias dotfiles="cd ~/dotfiles"

@@ -10,8 +10,8 @@ export TERM=xterm-256color
 export GREP_COLOR='00;33'
 
 # Front-end configs
-export CXXFLAGS="-mmacosx-version-min=10.9"
+# export CXXFLAGS="-mmacosx-version-min=10.9"
 
-export LDFLAGS="-mmacosx-version-min=10.9"
+# export LDFLAGS="-mmacosx-version-min=10.9"
 
 unsetopt nomatch

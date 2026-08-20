@@ -73,6 +73,9 @@ Plug 'maralla/completor.vim'
 Plug 'pechorin/any-jump.vim'
 Plug 'dyng/ctrlsf.vim'
 
+"Kotlin language
+Plug 'udalov/kotlin-vim'
+
 " Initialize plugin system
 call plug#end()
 

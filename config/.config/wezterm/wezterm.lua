@@ -6,8 +6,11 @@ return {
     color_scheme = "Builtin Solarized Dark",
 
     -- Font
+    harfbuzz_features = { 'calt=0', 'clig=0', 'liga=0' },  -- disable ligatures
+
     font = wezterm.font("Hermit"),
-    font_size = 16.0,
+    font_size = 16.2,
+    line_height = 0.95,
     font_rules = {
         {
             intensity = "Bold",
@@ -34,5 +37,18 @@ return {
 
     -- Window
     window_padding = { left = 2, right = 2, top = 2, bottom = 2 },
-    window_close_confirmation = "NeverPrompt"
+    window_close_confirmation = "NeverPrompt",
+
+
+    -- Visual Bell Only
+    audible_bell = 'Disabled',
+    visual_bell = {
+      fade_in_duration_ms = 20,
+      fade_out_duration_ms = 200,
+      fade_in_function = 'Linear',
+      fade_out_function = 'EaseOut',
+    },
+
+    -- System
+    automatically_reload_config = true
 }
