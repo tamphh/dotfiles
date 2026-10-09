@@ -6,10 +6,14 @@ export ANDROID_HOME=/Users/$USER/Library/Android/sdk
 
 export PATH=${PATH}:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools
 
+export JAVA_HOME=/Applications/Android\ Studio.app/Contents/jbr/Contents/Home
+
 export PATH=$PATH:/usr/local/sbin
 
 
 export PATH="$HOME/.cargo/bin:$PATH"
+
+export PATH="/opt/homebrew/bin:$PATH"
 
 # export PATH="$(brew --prefix qt@5.5)/bin:$PATH"
 

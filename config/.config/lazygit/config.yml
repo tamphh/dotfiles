@@ -1,0 +1,10 @@
+gui:
+  theme:
+    # 1. The background color of the active highlighted row
+    selectedLineBgColor:
+      - '#547d8c'
+
+# Custom keybindings
+keybinding:
+  universal:
+    quit: 'q'

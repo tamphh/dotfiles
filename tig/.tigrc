@@ -50,3 +50,13 @@ color diff-header       yellow          default
 # ==============================================================================
 # color default           250             234
 # color diff-del          202             default
+# ==============================================================================
+
+# Key bindings
+# ==============================================================================
+# Make Escape go back to the previous view (default is 'q')
+bind generic <Esc> view-close
+
+# Make 'q' exit tig entirely from any screen (default is quit)
+bind generic q quit
+

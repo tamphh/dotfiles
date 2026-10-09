@@ -31,7 +31,7 @@ alias gopush='git push origin "$(git_current_branch)"'
 alias gofetch='git fetch origin "$(git_current_branch)"'
 alias gcoi='git checkout $(git branch | fzf --height 50% --border --ansi --tac)'
 alias gmi='git merge $(git branch | fzf --height 50% --border --ansi --tac)'
-alias lg='lazygit'
+alias lg='lazygit --use-config-file="$HOME/.config/lazygit/config.yml"'
 
 # rspec
 alias rspec="bundle exec rspec"

@@ -50,7 +50,8 @@ Plug 'google/vim-searchindex'
 " Plug 'timakro/vim-searchant'
 Plug 'jiangmiao/auto-pairs'
 " fzf
-Plug '/usr/local/opt/fzf'
+  " Use '/usr/local/opt/fzf' if on an Intel Mac
+Plug '/opt/homebrew/opt/fzf'
 Plug 'junegunn/fzf.vim'
 Plug 'pbogut/fzf-mru.vim'
 Plug 'junegunn/vim-easy-align'
@@ -135,10 +136,18 @@ endif
 " lifepillar/vim-solarized8
 set background=dark
 colorscheme solarized8
+
+" let g:dracula_italic = 0
+" colorscheme dracula
+
 set fillchars=vert:│
 hi VertSplit ctermbg=NONE guibg=NONE ctermfg=Green guifg=#839289
 autocmd ColorScheme * highlight VertSplit cterm=NONE ctermfg=Green ctermbg=NONE
 hi NonText ctermfg=darkcyan guifg=darkcyan
+
+" Remove underline/highlight from current line or file items in explorer
+highlight CursorLine cterm=NONE gui=NONE
+highlight NERDTreeCursorLine cterm=NONE gui=NONE
 
 " Remap leader key to SPACE
 let mapleader="\<SPACE>"

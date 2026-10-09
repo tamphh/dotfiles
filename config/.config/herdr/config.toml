@@ -1,0 +1,94 @@
+onboarding = false
+
+[settings]
+escape_time = 0
+
+[theme.custom]
+# 1. Change the actual sidebar background color
+# sidebar_bg = "#282A35"
+accent = "#89b4fa"
+surface_dim = "#313244"
+
+[ui.sidebar.spaces]
+row_gap = 1
+rows = [
+  ["state_icon", "workspace"],
+  ["branch", "git_status"],
+  ["$topic"]
+]
+
+[ui.sidebar.agents]
+row_gap = 1
+rows = [
+  ["state_icon", "machine", "workspace", "tab"],
+  ["state_text", "agent"],
+]
+
+[[keys.command]]
+key = "prefix+i"
+type = "plugin_action"
+command = "persiyanov.reviewr.toggle"   # <plugin_id>.<action_id> — note the id, not the name
+description = "Open Herdr Reviewr"
+
+[[keys.command]]
+key = "prefix+o"
+type = "shell"
+command = "\"$HERDR_BIN_PATH\" plugin pane open --plugin herdr-omni --entrypoint picker"
+description = "Open Herdr Omni"
+
+[[keys.command]]
+key = "prefix+p"
+type = "plugin_action"
+command = "vjeantet.palette.open"
+description = "Command palette"
+
+# [[keys.command]]
+# key = "prefix+i"
+# type = "plugin_action"
+# command = "pane-navigator.open"
+# description = "navigate workspaces, tabs, and panes by title"
+
+[[keys.command]]
+key = "prefix+shift+c"
+type = "popup"
+command = "zsh"
+width = "90%"
+height = "85%"
+description = "floating shell popup"
+
+# By changing the inner command to $SHELL -ic "lg; exec $SHELL":
+# • -i forces the shell to run interactively, ensuring your custom lg alias is successfully loaded.
+# • -c executes the string command.
+# • exec $SHELL keeps the newly created tab open after you exit lazygit, allowing you to keep using that terminal pane. If you prefer the pane to close immediately when you exit lazygit, you can swap exec $SHELL back to exit.
+[[keys.command]]
+key = "prefix+ctrl+g"
+type = "shell"
+# command = "herdr pane run \"$(herdr tab create --focus --label 'lazygit' | jq -r .result.root_pane.pane_id)\" '/opt/homebrew/bin/lazygit; exit '"
+# command = "herdr pane run \"$(herdr tab create --focus --label 'lazygit' | jq -r .result.root_pane.pane_id)\" '$SHELL -ic \"lg; exec $SHELL\"'"
+command = "herdr pane run \"$(herdr tab create --focus --label 'lazygit' | jq -r .result.root_pane.pane_id)\" '$SHELL -ic \"lg\"; exit'"
+description = "lazygit"
+
+[[keys.command]]
+key = "prefix+ctrl+s"
+type = "shell"
+command = "herdr pane run \"$(herdr tab create --focus --label 'tig status' | jq -r .result.root_pane.pane_id)\" '$SHELL -ic \"tst\"; exit'"
+description = "tig status"
+
+[keys]
+prefix = "ctrl+a"
+
+# ctrl+space (no prefix) opens the session navigator. prefix+g stays as a
+# fallback for terminals that swallow the chord. This must live here in [keys]
+# -- putting it after the [[keys.command]] blocks below parses as a key of the
+# last one, and herdr only says "unknown config key ...; ignoring key".
+goto = ["prefix+g", "ctrl+space"]
+
+# shift-left/right move between windows
+previous_tab = ["prefix+m", "shift+left"]
+next_tab = ["prefix+n", "shift+right"]
+
+# | splits side by side, - splits top and bottom
+split_vertical = ["prefix+v", "prefix+|"]
+split_horizontal = "prefix+minus"
+# C-\ jumps back to the last pane
+last_pane = "prefix+backslash"

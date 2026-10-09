@@ -3,7 +3,8 @@ export LANG=en_US.UTF-8
 export LC_CTYPE=en_US.UTF-8
 
 # 10ms for key sequences
-KEYTIMEOUT=1
+export KEYTIMEOUT=1
+export ESCDELAY=25
 
 export EDITOR='vim'
 export TERM=xterm-256color
